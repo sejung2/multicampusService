@@ -1,4 +1,4 @@
-package oopInheritance.sec07;
+package oopInheritance.carEx;
 
 public class CarAutomobile {
     public static void main(String[] args) {
