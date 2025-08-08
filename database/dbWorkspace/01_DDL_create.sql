@@ -54,18 +54,22 @@ CREATE TABLE book(
 );
 -----------------
 --create 연습문제
-CREATE TABLE department(
-    dptNo VARCHAR2(8) NOT NULL PRIMARY KEY,
-    dptName VARCHAR2(30)
+-- 학과 테이블
+create table department (
+  dptNo varchar2(10) not null primary key,
+    dptName varchar2(30) not null,
+    dptTel varchar2(13) not null
 );
 
-CREATE TABLE student(
-    stdNo VARCHAR2(8) NOT NULL PRIMARY KEY,
-    stdGrade NUMBER(1) DEFAULT 4 CHECK(1 < stdGrade AND stdGrade < 4),
-    stdName VARCHAR2(10) NOT NULL,
-    dptNo VARCHAR2(8) NOT NULL,
-    CONSTRAINT FK_std_dpt FOREIGN KEY(dptNo) REFERENCES department(dptNo)
+create table student (
+	stdNo varchar2(10) not null primary key,
+    stdName varchar2(30) not null,
+    stdYear int default 4 check (stdYear BETWEEN 1 AND 4),
+    stdBirth date,
+    dptNo varchar2(10) not null,
+    foreign key (dptNo) references department(dptNo)
 );
+
 -----------------------------------------------------
 -- 교수 테이블
 create table professor (
