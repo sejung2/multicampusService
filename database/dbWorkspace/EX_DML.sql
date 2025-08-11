@@ -51,7 +51,7 @@ CREATE TABLE orderProduct(
 ALTER TABLE CUSTOMER MODIFY CUSTPHONE VARCHAR2(30) NOT NULL;
 -- 고객 테이블에 '성별', 나이열 추가 
 ALTER TABLE CUSTOMER ADD (GENDER VARCHAR(5), AGE NUMBER(3));
--- 고객, 주문 테이블에 데이터 삽입(3개) (미완)
+-- 고객, 주문 테이블에 데이터 삽입(3개)
 // 고객
 INSERT ALL
     INTO CUSTOMER VALUES('1001', '홍길동', '010-1111-1111', '강원도 평창', '남', 22)
@@ -72,26 +72,42 @@ WHERE PRDNO = '2';
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 --1.고객 테이블에서 고객명, 생년월일, 성별 출력
-SELECT CLIENTNAME, CLIENTBIRTH, CLIENTGENDER FROM CLIENT;
+SELECT CLIENTNAME, CLIENTBIRTH, CLIENTGENDER
+FROM CLIENT;
 --2.고객 테이블에서 주소만 검색하여 출력 (중복되는 튜플은 한번만 출력)
-SELECT DISTINCT CLIENTADDRESS FROM CLIENT;
+SELECT DISTINCT CLIENTADDRESS
+FROM CLIENT;
 --3.고객 테이블에서 취미가 '축구'이거나 '등산'인 고객의 고객명, 취미 출력
-SELECT CLIENTNAME, CLIENTHOBBY FROM CLIENT WHERE CLIENTHOBBY = '축구' OR CLIENTHOBBY = '등산';
+SELECT CLIENTNAME, CLIENTHOBBY
+FROM CLIENT
+WHERE CLIENTHOBBY = '축구' OR CLIENTHOBBY = '등산';
 --4.도서 테이블에서 저자의 두 번째 위치에 '길'이 들어 있는 저자명 출력 (중복되는 튜플은 한번만 출력)
-SELECT DISTINCT BOOKAUTHOR FROM BOOK2 WHERE BOOKAUTHOR LIKE '_길%';
+SELECT DISTINCT BOOKAUTHOR
+FROM BOOK2
+WHERE BOOKAUTHOR LIKE '_길%';
 --5.도서 테이블에서 발행일이 2018년인 도서의 도서명, 저자, 발행일 출력
-SELECT BOOKNAME, BOOKAUTHOR, BOOKDATE FROM BOOK2 WHERE BOOKDATE LIKE '2018%';
+SELECT BOOKNAME, BOOKAUTHOR, BOOKDATE
+FROM BOOK2
+WHERE BOOKDATE LIKE '2018%';
 --6.도서판매 테이블에서 고객번호1, 2를 제외한 모든 튜플 출력
 SELECT * FROM BOOKSALE
 WHERE CLIENTNO NOT IN(1, 2);
 --7.고객 테이블에서 취미가 NULL이 아니면서 주소가 '서울'인 고객의 고객명, 주소, 취미 출력
-SELECT CLIENTNAME, CLIENTADDRESS, CLIENTHOBBY FROM CLIENT
+SELECT CLIENTNAME, CLIENTADDRESS, CLIENTHOBBY
+FROM CLIENT
 WHERE CLIENTHOBBY IS NOT NULL AND CLIENTADDRESS='서울';
 --8.도서 테이블에서 가격이 25000 이상이면서 저자 이름에 '길동'이 들어가는 도서의 도서명, 저자, 가격, 재고 출력
 SELECT BOOKNAME, BOOKAUTHOR, BOOKPRICE, BOOKSTOCK FROM BOOK2
 WHERE BOOKPRICE >= 25000 AND BOOKAUTHOR LIKE '%길동%';
 --9.도서 테이블에서 가격이 20,000 ~25,000원인 모든 튜플 출력
-SELECT * FROM BOOK2 WHERE BOOKPRICE BETWEEN 20000 AND 25000;
+SELECT * FROM BOOK2
+WHERE BOOKPRICE BETWEEN 20000 AND 25000;
 --10.도서 테이블에서 저자명에 '길동'이 들어 있지 않는 도서의 도서명, 저자 출력
 SELECT BOOKNAME, BOOKAUTHOR FROM BOOK2
 WHERE BOOKAUTHOR NOT LIKE '%길동%';
+--------------------------------------------
+
+--order by
+SELECT bookName, bookAuthor from Book
+where bookAuthor not like "%길동"
+ORDER BY bookPrice asc, bookAuthor desc;
