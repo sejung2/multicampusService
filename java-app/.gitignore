@@ -30,3 +30,6 @@ bin/
 
 ### Windows ###
 .idea
+
+### .env files ###
+.env
