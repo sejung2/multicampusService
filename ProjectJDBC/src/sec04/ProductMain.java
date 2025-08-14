@@ -1,13 +1,11 @@
-package ex04;
-
-import sec03.DBConnect;
+package sec04;
 
 import java.sql.*;
 
 public class ProductMain {
     public static void main(String[] args) {
         // product테이블 data 조회
-        sec03.DBConnect dbCon = new DBConnect();
+        PrdDBConn dbCon = new PrdDBConn();
         Connection con = dbCon.getConnection(); // DB 연결
         Statement stmt = null;
         ResultSet rs = null;

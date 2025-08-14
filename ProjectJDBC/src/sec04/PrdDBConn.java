@@ -1,4 +1,4 @@
-package ex04;
+package sec04;
 
 import io.github.cdimascio.dotenv.Dotenv;
 
