@@ -204,4 +204,8 @@ public class StudentDAO implements IStudentDAO {
         }
         return stdList;
     }
+
+    public void close() {
+        DBConnect.close(con);
+    }
 }
