@@ -1,8 +1,8 @@
 package game_project.start;
 
-import game_project.auth.IMemberDAO;
-import game_project.auth.MemberDAO;
-import game_project.auth.MemberDTO;
+import game_project.model.IMemberDAO;
+import game_project.model.MemberDAO;
+import game_project.model.MemberDTO;
 import game_project.game.GaBaBo;
 import game_project.game.Guess;
 import game_project.info.AppInfo;
