@@ -121,41 +121,75 @@ public class _HashSet_P2<E> implements Iterable {
 
     @Override
     public Iterator iterator() {
-        return new Iterator() {
-            private Node<E> nextNode = (Node<E>) table[0];
-            private int currentBucket = 0;
+        return new Iterator<E>() {
 
-            {
-                for (int i = 0; i < table.length; i++) {
-                    if (table[i] != null) {
-                        nextNode = (Node<E>) table[i];
-                        currentBucket = i;
-                        break;
-                    }
-                }
-            }
+            private int cnt = 0;
+            private int rowPointer = -1;
+            private Node<E> prev = new Node<E>(null); // 복습 포인트, 기본적인 형태의 캐싱?
 
             @Override
             public boolean hasNext() {
-                return nextNode != null;
+                return cnt < size;
             }
 
             @Override
-            public Object next() {
-                if (!hasNext()) throw new NoSuchElementException();
-                Node<E> currentNode = nextNode;
-                nextNode = nextNode.next();
-                if (nextNode == null) {
-                    for (int j = currentBucket + 1; j < table.length; j++) {
-                        if (table[j] != null) {
-                            nextNode = (Node<E>) table[j];
-                            currentBucket = j;
-                            break;
-                        }
-                    }
+            public E next() {
+                if (prev.next() != null) {
+                    E data = prev.data();
+                    prev = prev.next();
+                    cnt++;
+                    return data;
                 }
-                return currentNode.data();
+
+                do {
+                    rowPointer++;
+                } while(table[rowPointer] == null);
+                
+                prev = (Node<E>) table[rowPointer];
+                E data = prev.data();
+                cnt++;
+                return data;
             }
         };
     }
+
+//    @Override
+//    public Iterator iterator() {
+//        return new Iterator() {
+//            private Node<E> nextNode = (Node<E>) table[0];
+//            private int currentBucket = 0;
+//
+//            {
+//                for (int i = 0; i < table.length; i++) {
+//                    if (table[i] != null) {
+//                        nextNode = (Node<E>) table[i];
+//                        currentBucket = i;
+//                        break;
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public boolean hasNext() {
+//                return nextNode != null;
+//            }
+//
+//            @Override
+//            public Object next() {
+//                if (!hasNext()) throw new NoSuchElementException();
+//                Node<E> currentNode = nextNode;
+//                nextNode = nextNode.next();
+//                if (nextNode == null) {
+//                    for (int j = currentBucket + 1; j < table.length; j++) {
+//                        if (table[j] != null) {
+//                            nextNode = (Node<E>) table[j];
+//                            currentBucket = j;
+//                            break;
+//                        }
+//                    }
+//                }
+//                return currentNode.data();
+//            }
+//        };
+//    }
 }
