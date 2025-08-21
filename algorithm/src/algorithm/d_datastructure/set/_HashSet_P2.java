@@ -4,6 +4,7 @@ import algorithm.d_datastructure.list.Node;
 
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 @SuppressWarnings("unchecked")
 public class _HashSet_P2<E> implements Iterable {
@@ -36,7 +37,7 @@ public class _HashSet_P2<E> implements Iterable {
         if (size == arraySize - 1) {
             resize();
         }
-        if(!addNode(e)) return false;
+        if (!addNode(e)) return false;
         size++;
         return true;
     }
@@ -51,11 +52,11 @@ public class _HashSet_P2<E> implements Iterable {
         }
 
         Node<E> link = head;
-        while(link.next() != null) {
-            if(link.data().equals(e)) return false;
+        while (link.next() != null) {
+            if (link.data().equals(e)) return false;
             link = link.next();
         }
-        if(link.data().equals(e)) return false;
+        if (link.data().equals(e)) return false;
         link.next(node);
         return true;
     }
@@ -73,7 +74,6 @@ public class _HashSet_P2<E> implements Iterable {
                 link = link.next();
             }
         }
-        table = temp;
     }
 
     public boolean remove(E data) {
@@ -107,7 +107,7 @@ public class _HashSet_P2<E> implements Iterable {
         sb.append("[");
 
         for (int i = 0; i < table.length; i++) {
-            if(table[i] == null) continue;
+            if (table[i] == null) continue;
             Node<E> link = (Node<E>) table[i];
             while (link != null) {
                 sb.append(link.data()).append(", ");
@@ -122,7 +122,40 @@ public class _HashSet_P2<E> implements Iterable {
     @Override
     public Iterator iterator() {
         return new Iterator() {
+            private Node<E> nextNode = (Node<E>) table[0];
+            private int currentBucket = 0;
 
+            {
+                for (int i = 0; i < table.length; i++) {
+                    if (table[i] != null) {
+                        nextNode = (Node<E>) table[i];
+                        currentBucket = i;
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public boolean hasNext() {
+                return nextNode != null;
+            }
+
+            @Override
+            public Object next() {
+                if (!hasNext()) throw new NoSuchElementException();
+                Node<E> currentNode = nextNode;
+                nextNode = nextNode.next();
+                if (nextNode == null) {
+                    for (int j = currentBucket + 1; j < table.length; j++) {
+                        if (table[j] != null) {
+                            nextNode = (Node<E>) table[j];
+                            currentBucket = j;
+                            break;
+                        }
+                    }
+                }
+                return currentNode.data();
+            }
         };
     }
 }

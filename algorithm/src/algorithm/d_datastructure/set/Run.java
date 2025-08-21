@@ -16,9 +16,9 @@ public class Run {
         set.add(minsa);
         set.add(multicampus);
 
-        System.out.println(set);
-        set.remove(new School("서울대", "관악구", "대학교"));
-        System.out.println(set);
+        //System.out.println(set);
+        //set.remove(new School("서울대", "관악구", "대학교"));
+        //System.out.println(set);
         for (Object o : set) {
             System.out.println(o);
         }
