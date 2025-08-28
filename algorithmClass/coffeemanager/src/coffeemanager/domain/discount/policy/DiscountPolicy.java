@@ -1,6 +1,5 @@
 package coffeemanager.domain.discount.policy;
 
-
 import coffeemanager.domain.order.Order;
 
 public abstract class DiscountPolicy {

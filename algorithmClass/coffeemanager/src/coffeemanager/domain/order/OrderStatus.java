@@ -26,13 +26,13 @@ public enum OrderStatus {
         if (orderCnt > coffee.getStock()) {
             Purchase purchase = new Purchase(coffee, orderCnt);
             if (!purchase.proceed()) {
-                return OrderStatus.FAIL_SOLD_OUT;
+                return FAIL_SOLD_OUT;
             }
         }
 
         if (coffee instanceof SeasonCoffee seasonCoffee) {
             if (!seasonCoffee.isSeason()) {
-                return OrderStatus.FAIL_SEASON;
+                return FAIL_SEASON;
             }
         }
         return OK;

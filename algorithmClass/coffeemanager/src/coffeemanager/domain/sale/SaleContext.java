@@ -9,7 +9,7 @@ public class SaleContext {
 
     public Payment init(Order order) {
         order.proceed();
-        Payment payment = new Payment(order, new AmountDiscountPolicy(500));
+        Payment payment = new Payment(order, new AmountDiscountPolicy(100));
         payment.proceed();
         return payment;
     }

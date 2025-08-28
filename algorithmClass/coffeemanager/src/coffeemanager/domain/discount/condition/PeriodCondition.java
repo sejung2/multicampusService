@@ -1,6 +1,5 @@
 package coffeemanager.domain.discount.condition;
 
-
 import coffeemanager.domain.order.Order;
 
 import java.time.DayOfWeek;
