@@ -12,9 +12,9 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 
 public class QrCodeGenerator {
-    // AIzaSyAX0oeen34Jw8JK6fu5NTQw-3Q53B9pOCI
+
     public void generate(QrCodeDTO dto) throws WriterException {
-        try(FileOutputStream fos = new FileOutputStream(dto.fileName())) {
+        try(FileOutputStream fos = new FileOutputStream(dto.fileName() + "." + dto.format())) {
             QRCodeWriter qrCodeWriter = new QRCodeWriter();
             BitMatrix bitMatrix = qrCodeWriter.encode(dto.text(), BarcodeFormat.QR_CODE, 300, 300);
             MatrixToImageWriter.writeToStream(bitMatrix, dto.format(), fos);

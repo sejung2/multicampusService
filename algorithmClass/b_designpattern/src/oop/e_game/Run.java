@@ -1,5 +1,10 @@
 package oop.e_game;
 
+import oop.e_game.character.Player;
+import oop.e_game.event.Event;
+import oop.e_game.event.EventData;
+
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -11,14 +16,8 @@ public class Run {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        Player player = new Player("seing", 200, 30, 10);
         Random random = new Random();
-        String[] adventures = new String[8];
-        String[] events = {"보물", "음식", "배틀"};
-
-        for (int i = 0; i < events.length; i++) {
-            adventures[i] = events[random.nextInt()];
-        }
-
 
         // 이벤트, 장비, 캐릭터(hp회복), 전투, 몬스터
 

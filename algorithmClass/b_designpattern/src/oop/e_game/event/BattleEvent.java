@@ -9,7 +9,8 @@ public class BattleEvent implements Event{
     Monster monster = new Monster("slime", 100, 10, 5);
 
     @Override
-    public void occurEvent(Scanner sc, Player player) {
+    public void occurEvent(Player player) {
+        Scanner sc  = new Scanner(System.in);
         System.out.println("[전투이벤트]" + monster.getName() + " 발생!");
         while (true) {
             if (player.isDead()) {

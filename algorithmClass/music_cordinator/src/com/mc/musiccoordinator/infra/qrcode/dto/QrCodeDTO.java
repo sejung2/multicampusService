@@ -10,8 +10,9 @@ public record QrCodeDTO(
         int height,
         String format
 ) {
+
     // canonical 생성자 이외의 다른 생성자를 사용할 때는
-    // 반드시 다른 생성자에게 객체 생성을 위임시켜야한다.
+    // 반드시 다른 생성자에게 객체 생성을 위임시켜야 한다.
     public QrCodeDTO(String text, String fileName) {
         this(text, fileName, 100, 100, "PNG");
     }
