@@ -1,4 +1,6 @@
-package com.mc.trpg.event;
+package com.mc.trpg.domain.event;
+
+import com.mc.trpg.domain.event.code.EventStatus;
 
 public interface Event {
 

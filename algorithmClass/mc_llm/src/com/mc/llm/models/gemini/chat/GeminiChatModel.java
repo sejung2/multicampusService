@@ -17,72 +17,69 @@ import com.mc.llm.models.BaseRequest;
 import com.mc.llm.models.BaseResponse;
 import com.mc.llm.models.gemini.chat.payload.error.GeminiErrorMessage;
 import com.mc.llm.util.json.JsonProvider;
+import io.github.cdimascio.dotenv.Dotenv;
 
 public class GeminiChatModel implements BaseModel{
-	
-	private final String API_URL;
-	private final String API_KEY;
-	private static GeminiChatModel INSTANCE;
-	
-	public static GeminiChatModel getInstance(String url) {
-		if(INSTANCE == null) {
-			INSTANCE = new GeminiChatModel(url);
-		}
-		
-		return INSTANCE;
-	}
+    private static Dotenv dotenv = Dotenv.configure()
+            .directory("music_cordinator")
+            .load();
 
-	private GeminiChatModel(String url) {
-		super();
-		API_URL = url;
-		API_KEY = System.getenv("GEMINI_API_KEY");
-		if(API_KEY == null) throw new LLMException(ErrorCode.BAD_REQUEST
-				, "환경변수에 GEMINI_API_KEY 가 존재하지 않습니다.");
-	}
+    private String API_URL;
+    private String API_KEY;
+    private static GeminiChatModel INSTANCE;
 
-	@Override
-	public BaseResponse invoke(BaseRequest message) {
-		String body = message.messageToJson();
-		
-		try(HttpClient client = HttpClient.newHttpClient()){
-			HttpRequest request = HttpRequest.newBuilder()
-				     .uri(URI.create(API_URL))
-				     .timeout(Duration.ofSeconds(15))
-				     .header("X-goog-api-key", API_KEY)
-				     .header("Content-Type", "application/json")
-				     .POST(BodyPublishers.ofString(body))
-				     .build();
+    public static GeminiChatModel getInstance(String url) {
+        if (INSTANCE == null) {
+            INSTANCE = new GeminiChatModel();
+        }
 
-			HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
-			
-			if(response.statusCode() < 200 || response.statusCode() > 299) {
-				
-				if(response.statusCode() == 404) {
-					throw new LLMException(ErrorCode.BAD_REQUEST,"잘못된 API URL 입니다.");
-				}
-				
-				JsonObject jsonObject 
-				= JsonProvider.gson().fromJson(response.body(), JsonObject.class);
-				
-				GeminiErrorMessage errorMessage 
-					= JsonProvider.gson().fromJson(jsonObject.get("error"), GeminiErrorMessage.class);
-				
-				throw new LLMException(ErrorCode.BAD_REQUEST, errorMessage.message());
-			}
-			
-			return new GeminiResponse(response.body());
-			
-		}catch (IOException | InterruptedException e) {
-			throw new LLMException(ErrorCode.INTERNAL_SERVER_ERROR, e);
-		}catch (RuntimeException e) {
-			throw new LLMException(ErrorCode.INTERNAL_SERVER_ERROR, e);
-		}
-	}
-	
-	
-	
-	
-	
-	
+        return INSTANCE;
+    }
 
+    private GeminiChatModel() {
+        super();
+        API_URL = dotenv.get("API_URL");
+        API_KEY = dotenv.get("API_KEY");
+        if (API_KEY == null) throw new LLMException(ErrorCode.BAD_REQUEST
+                , "환경변수에 GEMINI_API_KEY 가 존재하지 않습니다.");
+    }
+
+    @Override
+    public BaseResponse invoke(BaseRequest message) {
+        String body = message.messageToJson();
+
+        try (HttpClient client = HttpClient.newHttpClient()) {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(API_URL))
+                    .timeout(Duration.ofSeconds(15))
+                    .header("X-goog-api-key", API_KEY)
+                    .header("Content-Type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(body))
+                    .build();
+
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            if (response.statusCode() < 200 || response.statusCode() > 299) {
+
+                if (response.statusCode() == 404) {
+                    throw new LLMException(ErrorCode.BAD_REQUEST, "잘못된 API URL 입니다.");
+                }
+
+                JsonObject jsonObject
+                        = JsonProvider.gson().fromJson(response.body(), JsonObject.class);
+
+                GeminiErrorMessage errorMessage
+                        = JsonProvider.gson().fromJson(jsonObject.get("error"), GeminiErrorMessage.class);
+
+                throw new LLMException(ErrorCode.BAD_REQUEST, errorMessage.message());
+            }
+
+            return new GeminiResponse(response.body());
+
+        } catch (IOException | InterruptedException e) {
+            throw new LLMException(ErrorCode.INTERNAL_SERVER_ERROR, e);
+        } catch (RuntimeException e) {
+            throw new LLMException(ErrorCode.INTERNAL_SERVER_ERROR, e);
+        }
+    }
 }

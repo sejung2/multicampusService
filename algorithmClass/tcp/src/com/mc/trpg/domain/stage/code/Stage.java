@@ -1,4 +1,18 @@
-package com.mc.trpg.domain.stage;
+package com.mc.trpg.domain.stage.code;
+
+import com.mc.trpg.domain.character.Monster;
+import com.mc.trpg.domain.character.Player;
+import com.mc.trpg.domain.character.code.MonsterData;
+import com.mc.trpg.domain.event.*;
+import com.mc.trpg.domain.event.code.EventStatus;
+import com.mc.trpg.domain.event.scenario.EventScenario;
+import com.mc.trpg.domain.item.Equipment;
+import com.mc.trpg.domain.item.code.EquipmentData;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
 
 public class Stage {
     private StageCode code;
@@ -33,7 +47,7 @@ public class Stage {
                 continue;
             }
 
-            if(randomIdx < 3) {
+            if(randomIdx < 6) {
                 int equipIdx = random.nextInt(0, equipmentDatas.size());
                 Equipment equipment = equipmentDatas.get(equipIdx).create();
                 events.add(new EquipmentEvent(EventStatus.PENDING, player, equipment));
@@ -55,10 +69,13 @@ public class Stage {
 
     public void start() {
         Scanner sc = new Scanner(System.in);
+
         for (int i = 0, day = 1; i < events.size()-1; i++, day++) {
             System.out.println("\n========== " + day + "일 ==========");
+
             Event event = events.get(i);
-            event.proceed();
+            EventScenario scenario = new EventScenario(this, event);
+            scenario.start();
 
             if(event.status().equals(EventStatus.FAIL)) {
                 System.out.println("스테이지 클리어에 실패했습니다.");
@@ -72,5 +89,9 @@ public class Stage {
         }
 
         events.getLast().proceed();
+    }
+
+    public StageCode code() {
+        return this.code;
     }
 }

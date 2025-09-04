@@ -1,7 +1,7 @@
-package oop.e_game.event;
+package e_game.event;
 
-import oop.e_game.character.Monster;
-import oop.e_game.character.Player;
+import e_game.character.Monster;
+import e_game.character.Player;
 
 import java.util.Scanner;
 

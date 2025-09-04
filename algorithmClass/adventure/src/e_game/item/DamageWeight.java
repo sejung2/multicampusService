@@ -1,4 +1,4 @@
-package com.mc.trpg.domain.item;
+package e_game.item;
 
 public interface DamageWeight {
     int calAttackWeight(int damage);

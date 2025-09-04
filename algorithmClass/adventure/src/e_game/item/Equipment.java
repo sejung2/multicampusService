@@ -1,4 +1,5 @@
-package com.mc.trpg.domain.item;
+package e_game.item;
+
 
 import java.util.Random;
 
@@ -9,6 +10,15 @@ public class Equipment implements DamageWeight {
     private int def;
     private Slot slot;
     private String effect;
+
+    public String getEffect() {
+        return effect;
+    }
+
+    public Slot getSlot() {
+        return slot;
+    }
+
     private Random random = new Random();
 
     public Equipment(String name, int atk, int def, Slot slot, String effect) {
@@ -24,21 +34,12 @@ public class Equipment implements DamageWeight {
         return random.nextInt(damage + atk, damage + atk * 2);
     }
 
-    @Override
-    public int callDefenseWeight(int damage) {
-        return damage - (damage * def / 100);
-    }
-
-    public String getEffect() {
-        return effect;
-    }
-
-    public Slot getSlot() {
-        return slot;
-    }
-
     public String getName() {
         return name;
     }
 
+    @Override
+    public int callDefenseWeight(int damage) {
+        return damage - (damage * def / 100);
+    }
 }

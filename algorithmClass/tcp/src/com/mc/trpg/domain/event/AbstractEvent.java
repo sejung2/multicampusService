@@ -1,11 +1,12 @@
-package com.mc.trpg.event;
+package com.mc.trpg.domain.event;
 
-import com.mc.trpg.character.Player;
+import com.mc.trpg.domain.character.Player;
+import com.mc.trpg.domain.event.code.EventStatus;
 
 public abstract class AbstractEvent implements Event {
 
-    private EventStatus status;
-    private Player player;
+    protected EventStatus status;
+    protected Player player;
 
     public AbstractEvent(EventStatus status, Player player) {
         this.status = status;
@@ -13,17 +14,8 @@ public abstract class AbstractEvent implements Event {
     }
 
     @Override
-    public void proceed() {
-
-    }
-
-    @Override
     public EventStatus status() {
-        return null;
+        return status;
     }
 
-    @Override
-    public String desc() {
-        return "";
-    }
 }

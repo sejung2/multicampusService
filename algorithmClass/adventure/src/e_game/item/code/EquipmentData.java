@@ -1,7 +1,7 @@
-package com.mc.trpg.domain.item.code;
+package e_game.item.code;
 
-import com.mc.trpg.domain.item.Equipment;
-import com.mc.trpg.domain.item.Slot;
+import e_game.item.Equipment;
+import e_game.item.Slot;
 
 public enum EquipmentData {
 

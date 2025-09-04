@@ -1,4 +1,4 @@
-package com.mc.trpg.domain.character;
+package e_game.character;
 
 import java.util.Random;
 

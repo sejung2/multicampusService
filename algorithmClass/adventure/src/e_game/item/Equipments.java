@@ -1,6 +1,7 @@
-package com.mc.trpg.domain.item;
+package e_game.item;
 
-import com.mc.trpg.domain.item.code.EquipmentData;
+
+import e_game.item.code.EquipmentData;
 
 import java.util.Collection;
 import java.util.HashMap;

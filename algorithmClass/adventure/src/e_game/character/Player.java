@@ -1,8 +1,9 @@
-package com.mc.trpg.domain.character;
+package e_game.character;
 
-import com.mc.trpg.domain.item.Equipment;
-import com.mc.trpg.domain.item.Equipments;
-import com.mc.trpg.domain.item.Slot;
+
+import e_game.item.Equipment;
+import e_game.item.Equipments;
+import e_game.item.Slot;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -10,7 +11,7 @@ import java.util.Random;
 
 public class Player extends Character {
 
-    private Random random = new  Random();
+    Random random = new Random();
     private Equipments equipments = new Equipments();
 
     public Player(String name, int hp, int atk, int def) {
@@ -26,10 +27,7 @@ public class Player extends Character {
         }
 
         Optional<Equipment> optional = equipments.findbySlot(Slot.WEAPON);
-        // optional.isPresent()
-        // optional.isEmpty()
-        // optional.orElse(EquipmentData.BASIC_WEAPON.create());
-        // optional.orElseGet(() -> EquipmentData.BASIC_WEAPON.create());
+
         optional.orElseThrow(() -> new NoSuchElementException());
 
         if (optional.isPresent()) {
@@ -42,7 +40,7 @@ public class Player extends Character {
     public void takeDamage(int damage) {
         // 피해량 연산
         for (Equipment e : equipments.findAll()) {
-            damage = e.calAttackWeight(damage);
+            damage += e.calAttackWeight(damage);
         }
         System.out.println("[ Damage ]: " + damage);
 
@@ -54,7 +52,7 @@ public class Player extends Character {
         equipments.equip(equipment);
     }
 
-    public void restore() {
+    public void increaseHp() {
         this.currentHp = hp;
     }
 }

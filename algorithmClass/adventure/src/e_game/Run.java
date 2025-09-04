@@ -1,10 +1,10 @@
-package oop.e_game;
+package e_game;
 
-import oop.e_game.character.Player;
-import oop.e_game.event.BattleEvent;
-import oop.e_game.event.Event;
-import oop.e_game.event.FoodEvent;
-import oop.e_game.event.TreasureEvent;
+import e_game.character.Player;
+import e_game.event.BattleEvent;
+import e_game.event.Event;
+import e_game.event.FoodEvent;
+import e_game.event.TreasureEvent;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -48,6 +48,5 @@ public class Run {
             System.out.println("다음 이벤트로 넘어가려면 Enter를 누르세요");
             sc.nextLine();
         }
-
     }
 }

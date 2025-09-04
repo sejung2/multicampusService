@@ -1,4 +1,4 @@
-package com.mc.trpg.domain.item;
+package e_game.item;
 
 public enum Slot {
     WEAPON, ARMOR, HELMET, BOOTS
