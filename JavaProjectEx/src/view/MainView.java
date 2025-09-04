@@ -43,6 +43,7 @@ public class MainView {
                     System.out.println("종료합니다");
                     System.out.println("-------------------------");
                     sc.close();
+                    return;
                 }
                 default -> System.out.println("잘못 입력하셨습니다");
             }
