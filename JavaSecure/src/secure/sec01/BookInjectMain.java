@@ -6,9 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class StudentInjectMain {
+public class BookInjectMain {
     public static void main(String[] args) {
-        // 취약점이 있는 코드/잘못 구현된 코드
         DBConnect dbCon = new DBConnect();
         Connection con = dbCon.getConnection();
 
@@ -18,13 +17,12 @@ public class StudentInjectMain {
 
         try {
             System.out.print("학생 번호를 입력:");
-            String studentNo = sc.nextLine();
-            System.out.println(studentNo);
+            String bookNo = sc.nextLine();
+            System.out.println(bookNo);
 
-            //sql query문 작성 - placeholder (?) 사용 안함 -> SQL Injection 공격에 취약
-            String sql = "SELECT * FROM STUDENT WHERE stdNo='" + studentNo + "'";
+            String sql = "SELECT * FROM Book2 WHERE bookNo='" + bookNo + "'";
             System.out.println(sql);
-            pstmt = con.prepareStatement(sql); // 하드코딩된 query 구문 그대로 적용 가능 -> SQL Injection 공격에 취약
+            pstmt = con.prepareStatement(sql);
             rs = pstmt.executeQuery();
 
             // 제목 출력
@@ -33,12 +31,12 @@ public class StudentInjectMain {
 
             // 필요 내용만 추출
             while (rs.next()) {
-                String stdNo = rs.getString("stdNo");
+                String bkNo = rs.getString("bkNo");
                 String stdName = rs.getString("stdName");
                 int stdYear = rs.getInt("stdYear");
 
                 // 한 행씩 출력
-                System.out.format("%-10s\t, %-20s\t %6d \n", stdNo, stdName, stdYear);
+                System.out.format("%-10s\t, %-20s\t %6d \n", bkNo, stdName, stdYear);
 
 
             }
@@ -50,6 +48,5 @@ public class StudentInjectMain {
         } catch (SQLException e) {
             e.printStackTrace(); // 개발단계에서 개발자가 오류를 추적할 수 있도록 도움
         }
-
     }
 }

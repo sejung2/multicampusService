@@ -1,4 +1,4 @@
-package sec06;
+package secure.sec01;
 
 import io.github.cdimascio.dotenv.Dotenv;
 

@@ -4,11 +4,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Locale;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public class StudentInjectMainSecure1 {
+public class StudentInjectMainSecure2 {
     public static void main(String[] args) {
-        // 취약점이 있는 코드/잘못 구현된 코드
+        // 입력값 필터링
+        // 문자와 숫자를 제외한 나머지 특수 기호 필터링
+        // Union 삽입 공격에 사용하는 키워드들은 필터링
         DBConnect dbCon = new DBConnect();
         Connection con = dbCon.getConnection();
 
@@ -16,10 +21,22 @@ public class StudentInjectMainSecure1 {
         ResultSet rs = null;
         Scanner sc = new Scanner(System.in);
 
+        Pattern pattern = Pattern.compile("[^a-zA-Z0-9]|[select|delete|update|insert|create|alter|drop|all|union]"); // 문자와 숫자를 제외한 나머지 특수 기호 필터링
+        Matcher matcher = null;
+
+
         try {
             System.out.print("학생 번호를 입력:");
             String studentNo = sc.nextLine();
             System.out.println(studentNo);
+
+            pattern.matcher(studentNo.toLowerCase());
+            boolean match = true;
+            while (matcher.find()) { // 설정한 정규식과 전달된 문자열이 일치하는지 확인, 일치하면 true, 일치하지 않으면 false 반환
+                match = false;
+                break;
+            }
+
 
             //sql query문 작성 - placeholder (?) 사용 안함 -> SQL Injection 공격에 취약
             String sql = "SELECT * FROM STUDENT WHERE stdNo=?";
