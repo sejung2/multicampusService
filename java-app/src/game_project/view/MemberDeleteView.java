@@ -6,24 +6,22 @@ import java.util.Scanner;
 
 public class MemberDeleteView {
     Controller controller = Controller.getInstance();
-    Scanner sc = new Scanner(System.in);
 
-    public void delete() {
-        String memeNo;
+    public void deleteMember(Scanner sc) {
+        System.out.println("\n*******************************");
+        System.out.println("회원탈퇴");
+        System.out.println("*********************************");
 
-        System.out.println("\n*************************");
-        System.out.println("회원정보 삭제");
-        System.out.println("***************************");
+        System.out.print("탈퇴할 아이디 입력: ");
+        String memId = sc.nextLine();
 
-        // 전체 도서 출력
-        MemberListView mls = new MemberListView();
-        mls.getAllMember();
+        System.out.print("정말 탈퇴하시겠습니까? (y/n): ");
+        String confirm = sc.nextLine();
 
-        System.out.print("삭제할 회원번호 입력 : ");
-        memeNo = sc.nextLine();
-        System.out.println("***************************");
-
-        // 컨트롤러에게 입력받은 회원번호 전달
-        controller.delete(memeNo);
+        if (confirm.equalsIgnoreCase("y")) {
+            controller.deleteMember(memId);
+        } else {
+            System.out.println("탈퇴가 취소되었습니다.");
+        }
     }
 }

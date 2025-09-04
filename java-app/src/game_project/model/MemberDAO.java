@@ -8,47 +8,130 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MemberDAO implements IMemberDAO { // IMemberDAO 인터페이스를 구현한 클래스
+public class MemberDAO implements IMemberDAO {
 
     @Override
-    public boolean insert(MemberDTO member) throws Exception { // 회원가입 메소드
+    public boolean insert(String id, String pass) throws Exception {
         Connection con = null;
         PreparedStatement pstmt = null;
 
         try {
             con = DBConnect.getConnection();
-            pstmt = con.prepareStatement("insert into member values(?, ?, ?, ?)");
-            pstmt.setString(1, member.getMemNo());
-            pstmt.setString(4, member.getMemId());
-            pstmt.setString(2, member.getMemPass());
-            pstmt.setString(3, member.getMemName());
+            // memNo는 AUTO_INCREMENT이므로 제외
+            pstmt = con.prepareStatement("INSERT INTO member (memId, memPass) VALUES (?, ?)");
+            pstmt.setString(1, id);
+            pstmt.setString(2, pass);
 
             int result = pstmt.executeUpdate();
-            if (result == 0) {
-                return false;
-            }
+            return result > 0;
         } catch (Exception e) {
             throw e;
         } finally {
             DBConnect.close(con, pstmt);
         }
-        return true;
     }
 
     @Override
-    public MemberDTO select(MemberDTO member) {
+    public MemberDTO select(MemberDTO member) throws Exception {
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         MemberDTO memberDTO = null;
 
-        String sql = "select * from member where memNo='" + member.getMemNo() + "'";
-        return null;
+        try {
+            con = DBConnect.getConnection();
+            String sql = "SELECT * FROM member WHERE memNo=?";
+            pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, member.getMemNo());
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                memberDTO = new MemberDTO(
+                        rs.getInt("memNo"),
+                        rs.getString("memId"),
+                        rs.getString("memPass")
+                );
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            DBConnect.close(con, pstmt, rs);
+        }
+        return memberDTO;
+    }
+
+    @Override
+    public MemberDTO selectById(String memId) throws Exception {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        MemberDTO memberDTO = null;
+
+        try {
+            con = DBConnect.getConnection();
+            String sql = "SELECT * FROM member WHERE memId=?";
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, memId);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                memberDTO = new MemberDTO(
+                        rs.getInt("memNo"),
+                        rs.getString("memId"),
+                        rs.getString("memPass")
+                );
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            DBConnect.close(con, pstmt, rs);
+        }
+        return memberDTO;
+    }
+
+    @Override
+    public boolean updateById(String memId, String newPassword) throws Exception {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            con = DBConnect.getConnection();
+            String sql = "UPDATE member SET memPass=? WHERE memId=?";
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, newPassword);
+            pstmt.setString(2, memId);
+
+            int result = pstmt.executeUpdate();
+            return result > 0;
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            DBConnect.close(con, pstmt);
+        }
+    }
+
+    @Override
+    public boolean deleteById(String memId) throws Exception {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            con = DBConnect.getConnection();
+            String sql = "DELETE FROM member WHERE memId=?";
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, memId);
+
+            int result = pstmt.executeUpdate();
+            return result > 0;
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            DBConnect.close(con, pstmt);
+        }
     }
 
     @Override
     public List<MemberDTO> getAllMember() throws Exception {
-        // 전체 회원 정보를 반환
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -56,75 +139,48 @@ public class MemberDAO implements IMemberDAO { // IMemberDAO 인터페이스를 
 
         try {
             con = DBConnect.getConnection();
-            pstmt = con.prepareStatement("select * from member order by memNo");
+            pstmt = con.prepareStatement("SELECT * FROM member ORDER BY memNo");
             rs = pstmt.executeQuery();
             dataSet = new ArrayList<>();
 
             while (rs.next()) {
                 dataSet.add(new MemberDTO(
-                        rs.getString(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getString(4)
+                        rs.getInt("memNo"),      // int로 수정
+                        rs.getString("memId"),
+                        rs.getString("memPass")
                 ));
             }
         } catch (Exception e) {
             throw e;
         } finally {
-            DBConnect.close(con, pstmt);
+            DBConnect.close(con, pstmt, rs);
         }
-        return dataSet; // 모든 회원 정보를 반환
+        return dataSet;
     }
 
     @Override
-    public boolean update(MemberDTO member) throws Exception {
+    public boolean login(String id, String password) throws Exception {
         Connection con = null;
         PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        boolean loginSuccess = false;
 
         try {
             con = DBConnect.getConnection();
-            String sql = "update member set memNo=?, memId=?, memPass=?, memName=?";
+            String sql = "SELECT * FROM member WHERE memId=? AND memPass=?";
             pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, id);
+            pstmt.setString(2, password);
+            rs = pstmt.executeQuery();
 
-            pstmt.setString(1, member.getMemNo());
-            pstmt.setString(2, member.getMemId());
-            pstmt.setString(3, member.getMemPass());
-            pstmt.setString(4, member.getMemName());
-
-            int result = pstmt.executeUpdate();
-
-            if (result == 0) {
-                return false;
+            if (rs.next()) {
+                loginSuccess = true;
             }
         } catch (Exception e) {
             throw e;
         } finally {
-            DBConnect.close(con, pstmt);
+            DBConnect.close(con, pstmt, rs);
         }
-        return true;
-    }
-
-    @Override
-    public boolean delete(MemberDTO member) throws Exception {
-        Connection con = null;
-        PreparedStatement pstmt = null;
-
-        try {
-            con = DBConnect.getConnection();
-            String sql = "delete member where memNo";
-            pstmt = con.prepareStatement(sql);
-            pstmt.setString(1, member.getMemNo());
-
-            int result = pstmt.executeUpdate();
-
-            if (result == 0) {
-                return false;
-            }
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            DBConnect.close(con, pstmt);
-        }
-        return true;
+        return loginSuccess;
     }
 }

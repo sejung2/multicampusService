@@ -6,14 +6,10 @@ import game_project.view.MemberListView;
 import game_project.view.ResultView;
 
 import java.util.List;
-import java.util.Vector;
 
-// View 별로 컨트롤러를 구성해서 사용하면 DAO 접근통로가 많아져
-// db 사용제어가 불가능함
-// Singleton 으로 구성: 하나의 객체만 생성 - 공유해서 사용
 public class Controller {
-    // 본인 객체 인스턴스를 본인이 제공 - private static으로 객체 구성
     private static Controller instance = new Controller();
+    private MemberDAO dao = new MemberDAO();
 
     private Controller() {
     }
@@ -22,70 +18,94 @@ public class Controller {
         return instance;
     }
 
-    // 데이터 처리 method
-    MemberDAO dao = new MemberDAO(); //MemberDAO가 갖고 있는 모든 메소드 사용 가능
-
-    public void insert(MemberDTO newDto) {
-        // dao의 insert 호출
+    // 회원가입
+    public void insert(String memId, String memPass) {
         try {
-            MemberDTO dto = new MemberDTO();
-            dto.setMemNo(newDto.getMemNo());
-            dto.setMemId(newDto.getMemId());
-            dto.setMemPass(newDto.getMemPass());
-            dto.setMemName(newDto.getMemName());
-
-            if (dao.insert(dto)) {
-                ResultView.succMsg("도서 정보가 등록되었습니다");
+            if (dao.insert(memId, memPass)) {
+                ResultView.succMsg("회원가입이 완료되었습니다");
+            } else {
+                ResultView.errorMsg("회원가입에 실패했습니다");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            ResultView.succMsg("도서 정보 등록 오류: ");
+            ResultView.errorMsg("회원가입 처리 중 오류가 발생했습니다");
         }
     }
 
+    // 로그인
+    public boolean login(String memId, String memPass) {
+        try {
+            if (dao.login(memId, memPass)) {
+                ResultView.succMsg("로그인 성공!");
+                return true;
+            } else {
+                ResultView.errorMsg("아이디 또는 비밀번호가 잘못되었습니다");
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            ResultView.errorMsg("로그인 처리 중 오류가 발생했습니다");
+            return false;
+        }
+    }
+
+    // 전체 회원 조회
     public void getAllMember() {
         try {
             List<MemberDTO> dataSet = dao.getAllMember();
 
-            if (dataSet.size() >= 0) { // 데이터 존재 시
+            if (dataSet != null && dataSet.size() > 0) {
                 MemberListView.showAllMember(dataSet);
             } else {
-                ResultView.succMsg("검색 결과가 없습니다");
+                ResultView.succMsg("등록된 회원이 없습니다");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            ResultView.errorMsg("잠시후에 재요청 바랍니다");
+            ResultView.errorMsg("회원 조회 중 오류가 발생했습니다");
         }
     }
 
-    public void update(MemberDTO newDto) {
+    // 비밀번호 변경
+    public void updatePassword(String memId, String newPassword) {
         try {
-            MemberDTO dto = new MemberDTO();
-            dto.setMemNo(newDto.getMemNo());
-            dto.setMemId(newDto.getMemId());
-            dto.setMemPass(newDto.getMemPass());
-            dto.setMemName(newDto.getMemName());
-
-            if (dao.update(dto)) {
-                ResultView.succMsg("회원 정보가 수정되었습니다");
+            if (dao.updateById(memId, newPassword)) {
+                ResultView.succMsg("비밀번호가 변경되었습니다");
+            } else {
+                ResultView.errorMsg("비밀번호 변경에 실패했습니다");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            ResultView.succMsg("회원 정보 수정 오류: ");
+            ResultView.errorMsg("비밀번호 변경 중 오류가 발생했습니다");
         }
     }
 
-    public void delete(String MemberNo) {
+    // 회원 탈퇴
+    public void deleteMember(String memId) {
         try {
-            MemberDTO dto = new MemberDTO();
-            dto.setMemNo(MemberNo);
-
-            if (dao.delete(dto)) {
-                ResultView.succMsg(MemberNo + " 도서를 삭제하였습니다. 결과는 도서정보 조회에서 확인");
+            if (dao.deleteById(memId)) {
+                ResultView.succMsg("회원탈퇴가 완료되었습니다");
+            } else {
+                ResultView.errorMsg("회원탈퇴에 실패했습니다");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            ResultView.errorMsg("도서 정보 삭제 오류");
+            ResultView.errorMsg("회원탈퇴 처리 중 오류가 발생했습니다");
+        }
+    }
+
+    // 회원 정보 조회
+    public void getMemberInfo(String memId) {
+        try {
+            MemberDTO member = dao.selectById(memId);
+            if (member != null) {
+                ResultView.succMsg("회원번호: " + member.getMemNo() +
+                        ", 아이디: " + member.getMemId());
+            } else {
+                ResultView.errorMsg("해당 회원을 찾을 수 없습니다");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            ResultView.errorMsg("회원 정보 조회 중 오류가 발생했습니다");
         }
     }
 }

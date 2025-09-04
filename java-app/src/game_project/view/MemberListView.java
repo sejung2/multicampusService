@@ -4,12 +4,12 @@ import game_project.controller.Controller;
 import game_project.model.MemberDTO;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class MemberListView {
-    // 조회된 전체 도서정보 결과 출력
-    Controller controller = Controller.getInstance();
+    Controller controller = Controller.getInstance(); // 싱글톤 인스턴스 유지
 
-    public void getAllMember() { // controller에 요청만 전달
+    public void getAllMember() {
         controller.getAllMember();
     }
 
@@ -17,12 +17,12 @@ public class MemberListView {
         System.out.println("\n*******************************");
         System.out.println("회원 정보 조회");
         System.out.println("*********************************");
-
-        System.out.println("회원번호\t 아이디\t\t  비밀번호\t\t 이름");
-        System.out.println("--------------------------------------------");
+        System.out.println("회원번호\t아이디\t\t비밀번호");
+        System.out.println("------------------------------------");
 
         for (MemberDTO dto : dataSet) {
-            System.out.println(dto);
+            System.out.println(dto); // toString() 활용
         }
+        System.out.println("------------------------------------\n");
     }
 }

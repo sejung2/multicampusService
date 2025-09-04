@@ -2,27 +2,42 @@ package game_project.model;
 
 import java.util.Objects;
 
+// member 테이블 생성쿼리
+/*
+* CREATE TABLE member (
+    memNo INT AUTO_INCREMENT PRIMARY KEY,
+    memId VARCHAR(100) NOT NULL,
+    memPass VARCHAR(50) NOT NULL
+);
+* */
+
 public class MemberDTO { // 회원 정보를 저장하는 DTO 클래스
-    private String memNo; // 회원 번호
+    private int memNo; // 회원 번호 (String -> int로 변경)
     private String memId; // 회원 아이디
     private String memPass; // 회원 비밀번호
-    private String memName; // 회원 이름(닉네임)
 
     public MemberDTO() {
     }
 
-    public MemberDTO(String memNo, String memId, String memPass, String memName) {
+    // 회원가입용 생성자 (memNo는 DB에서 자동생성)
+    public MemberDTO(String memId, String memPass) {
+        this.memId = memId;
+        this.memPass = memPass;
+    }
+
+    // 전체 생성자
+    public MemberDTO(int memNo, String memId, String memPass) {
         this.memNo = memNo;
         this.memId = memId;
         this.memPass = memPass;
-        this.memName = memName;
     }
 
-    public String getMemNo() {
+    // memNo getter/setter 추가
+    public int getMemNo() {
         return memNo;
     }
 
-    public void setMemNo(String memNo) {
+    public void setMemNo(int memNo) {
         this.memNo = memNo;
     }
 
@@ -42,24 +57,16 @@ public class MemberDTO { // 회원 정보를 저장하는 DTO 클래스
         this.memPass = memPass;
     }
 
-    public String getMemName() {
-        return memName;
-    }
-
-    public void setMemName(String memName) {
-        this.memName = memName;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         MemberDTO memberDTO = (MemberDTO) o;
-        return Objects.equals(memNo, memberDTO.memNo) && Objects.equals(memId, memberDTO.memId) && Objects.equals(memPass, memberDTO.memPass) && Objects.equals(memName, memberDTO.memName);
+        return memNo == memberDTO.memNo && Objects.equals(memId, memberDTO.memId) && Objects.equals(memPass, memberDTO.memPass);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(memNo, memId, memPass, memName);
+        return Objects.hash(memNo, memId, memPass);
     }
 
     @Override
@@ -70,8 +77,6 @@ public class MemberDTO { // 회원 정보를 저장하는 DTO 클래스
         builder.append(memId);
         builder.append("\t");
         builder.append(memPass);
-        builder.append("\t");
-        builder.append(memName);
         return builder.toString();
     }
 }
