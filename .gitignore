@@ -1,0 +1,14 @@
+### Ignore IDE files
+.idea
+
+### Ignore ilml files
+*.iml
+
+### Ignore out
+out/
+
+### lib directory
+lib/
+
+### Ignore environment files
+.env
