@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+         version="6.0">
+    <display-name>Servlet</display-name>
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.htm</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <servlet>
+        <servlet-name>myFirst</servlet-name>
+        <servlet-class>com.seing.practice.servlet.HelloServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>mySecond</servlet-name>
+        <servlet-class>com.seing.practice.servlet.SecondServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>myFirst</servlet-name>
+        <url-pattern>/first</url-pattern> <!-- context/first, web.xml이 변경되면 서버 재시작해야 함 -->
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>mySecond</servlet-name>
+        <url-pattern>/second</url-pattern>
+    </servlet-mapping>
+</web-app>
