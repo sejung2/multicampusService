@@ -12,12 +12,12 @@
 
     <servlet>
         <servlet-name>myFirst</servlet-name>
-        <servlet-class>com.seing.practice.servlet.HelloServlet</servlet-class>
+        <servlet-class>com.seing.practice.servlet.servelet01.sec01.HelloServlet</servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>mySecond</servlet-name>
-        <servlet-class>com.seing.practice.servlet.SecondServlet</servlet-class>
+        <servlet-class>com.seing.practice.servlet.servelet01.sec01.SecondServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
