@@ -13,13 +13,17 @@
         <input type="submit" value="제출">
     </form>
 
+    <p>
+        ${error != null ? error : ""}
+    </p>
+
     <!-- 결과 출력 -->
     <h3>게임 결과</h3>
-    <p>당신이 낸 것: <%= request.getAttribute("choice") == null ? "아직 선택하지 않음" : request.getAttribute("choice") %>
+    <p>당신이 낸 것: ${user}
     </p>
-    <p>컴퓨터가 낸 것: <%= request.getAttribute("computer") == null ? "아직 선택하지 않음" : request.getAttribute("computer") %>
+    <p>컴퓨터가 낸 것: ${computer}
     </p>
-    <p>결과: <%= request.getAttribute("result") != null ? request.getAttribute("result") : "아직 결과 없음" %>
+    <p>결과: ${result}
     </p>
     <br>
     <!-- 게임 다시하기 여부 -->

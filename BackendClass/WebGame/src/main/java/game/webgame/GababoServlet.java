@@ -3,6 +3,7 @@ package game.webgame;
 
 import java.io.IOException;
 import java.io.Serial;
+import java.util.Map;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.Servlet;
@@ -41,38 +42,23 @@ public class GababoServlet extends HttpServlet {
 
     protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        int choice = Integer.parseInt(request.getParameter("choice"));
-        request.setAttribute("choice", choice);
+        try {
+            int userChoice = Integer.parseInt(request.getParameter("choice"));
 
-        int computerChoice = (int) (Math.random() * 3) + 1; // 1부터 3까지의 랜덤 값 생성
-        request.setAttribute("computer", computerChoice);
+            GaBaBo game = new GaBaBo();
 
-        int result = result(choice, computerChoice);
+            Map<String, String> gameResult = game.startGame(userChoice);
+            request.setAttribute("user", gameResult.get("user"));
+            request.setAttribute("computer", gameResult.get("computer"));
+            request.setAttribute("result", gameResult.get("result"));
 
-
-        switch (result) {
-            case 0 -> request.setAttribute("result", "비겼습니다.");
-            case 1 -> request.setAttribute("result", "이겼습니다.");
-            case -1 -> request.setAttribute("result", "졌습니다.");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Gababo.jsp");
+            dispatcher.forward(request, response);
+        } catch (NumberFormatException e) {
+            request.setAttribute("error", "잘못된 입력입니다. 가위, 바위, 보 중 하나를 선택해주세요.");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Gababo.jsp");
+            dispatcher.forward(request, response);
         }
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("Gababo.jsp");
-        dispatcher.forward(request, response);
     }
-
-    private int result(int userChoice, int computerChoice) {
-        if (userChoice == computerChoice) {
-            // 사용자와 컴퓨터의 선택이 같을 때
-            return 0;
-        } else if ((userChoice == 1 && computerChoice == 3) ||
-                (userChoice == 2 && computerChoice == 1) ||
-                (userChoice == 3 && computerChoice == 2)) {
-            // 사용자 승리 조건
-            return 1;
-        } else {
-            // 컴퓨터 승리 조건
-            return -1;
-        }
-    }
-
 }
