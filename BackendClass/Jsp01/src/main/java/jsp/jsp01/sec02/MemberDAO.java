@@ -2,6 +2,9 @@ package jsp.jsp01.sec02;
 
 import io.github.cdimascio.dotenv.Dotenv;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,6 +12,17 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class MemberDAO {
+    private DataSource dataFactory;
+    public MemberDAO() {
+        try {
+            Context ctx = new InitialContext();
+            Context envContext = (Context) ctx.lookup("java:/comp/env");
+            this.dataFactory = (DataSource) envContext.lookup("jdbc/oracle");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private static Dotenv dotenv = Dotenv.load();
 
     private Connection getConnection() {
@@ -41,7 +55,8 @@ public class MemberDAO {
         ArrayList<MemberVO> memList = new ArrayList<>();
 
         try {
-            con = getConnection();
+            // con = getConnection(); // 사용자 정의 메서드
+            con = dataFactory.getConnection();
 
             String query = "SELECT * FROM member2";
             pstmt = con.prepareStatement(query);
