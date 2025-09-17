@@ -1,4 +1,4 @@
-package kr.seing.practice.di.spring_di_xml_contructor;
+package kr.seing.practice.di.spring_di_xml_setter;
 
 public class NameService {
     public String showName(String name) {

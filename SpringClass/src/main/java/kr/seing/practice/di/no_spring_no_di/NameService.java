@@ -1,4 +1,4 @@
-package kr.seing.practice.no_spring_no_di;
+package kr.seing.practice.di.no_spring_no_di;
 
 public class NameService {
 

@@ -1,4 +1,4 @@
-package kr.seing.practice.com.di.spring_di_xml_contructor_ex;
+package kr.seing.practice.com.di.spring_di_xml_constructor_ex;
 
 public class Speaker {
 

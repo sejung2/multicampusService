@@ -1,12 +1,11 @@
-package kr.seing.practice.com.di.spring_di_xml_contructor_ex;
+package kr.seing.practice.com.di.spring_di_xml_constructor_ex;
 
-import org.springframework.context.support.AbstractApplicationContext;
-import org.springframework.context.support.GenericApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
 
 public class TvMain {
 
     public static void main(String[] args) {
-        GenericApplicationContext context = new GenericApplicationContext("application-context1_1.xml");
+        GenericXmlApplicationContext context = new GenericXmlApplicationContext("application-context1_1.xml");
 
         Tv tv = (Tv) context.getBean("tv");
         tv.volumeUp();

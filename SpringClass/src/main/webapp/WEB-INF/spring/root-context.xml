@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 주입받을 클래스 bean 생성 후 내부 태그로 contructor-arg 사용: 생성자에 주입-->
+    <bean id="nameService" class="kr.seing.practice.di.spring_di_xml_contructor.NameService"/>
+    <bean id="nameController" class="kr.seing.practice.di.spring_di_xml_contructor.NameController">
+        <constructor-arg ref="nameService"/>
+    </bean>
+</beans>

@@ -1,9 +1,10 @@
-package kr.seing.practice.spring_di_xml_contructor;
+package kr.seing.practice.di.spring_di_xml_contructor;
+
 
 public class NameController {
-    NameService nameService;
+    private final NameService nameService;
 
-    public void setNameService(NameService nameService) {
+    public NameController(NameService nameService) {
         this.nameService = nameService;
     }
 
