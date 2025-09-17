@@ -1,0 +1,9 @@
+package kr.seing.practice.di.spring_di_xml_setter;
+
+public class NameService {
+    public String showName(String name) {
+        System.out.println("NameService showName() method");
+        String myname = "my name is " + name;
+        return myname;
+    }
+}
