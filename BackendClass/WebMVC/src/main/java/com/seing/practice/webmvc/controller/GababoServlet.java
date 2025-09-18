@@ -1,6 +1,6 @@
 package com.seing.practice.webmvc.controller;
 
-
+import com.seing.practice.webmvc.service.GaBaBo;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.io.Serial;
 import java.util.Map;
 
-@WebServlet("/gababo")
+@WebServlet("/game/gababo")
 public class GababoServlet extends HttpServlet {
     @Serial
     private static final long serialVersionUID = 1L;

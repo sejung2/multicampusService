@@ -1,12 +1,9 @@
 package com.seing.practice.webmvc.model;
 
-import io.github.cdimascio.dotenv.Dotenv;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -21,30 +18,6 @@ public class MemberDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private static Dotenv dotenv = Dotenv.load();
-
-    private Connection getConnection() {
-        Connection con = null;
-
-        try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-
-            String url = dotenv.get("DB_URL");
-            String username = dotenv.get("DB_USERNAME");
-            String password = dotenv.get("DB_PASSWORD");
-
-            con = DriverManager.getConnection(url, username, password);
-            if (con != null) {
-                System.out.println("DB 연결성공!");
-            } else {
-                System.out.println("DB 연결실패!");
-            }
-        } catch (Exception e) {
-            System.out.println("DB 연결실패!" + e);
-        }
-        return con;
     }
 
     public ArrayList<MemberVO> memeberSelect() {

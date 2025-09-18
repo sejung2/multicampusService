@@ -1,4 +1,4 @@
-package game.webgame;
+package com.seing.practice.webmvc.service;
 
 import java.util.HashMap;
 import java.util.Map;
