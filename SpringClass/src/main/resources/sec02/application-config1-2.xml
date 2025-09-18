@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean id="performanceAspect" class="kr.seing.practice.com.spring_aop_xml2.PerformanceAspect"/>
+
+    <aop:config>
+        <!-- advice 클래스 등록 -->
+        <aop:aspect id="performanceAspect" ref="performanceAspect">
+            <!-- where: 해당 패키지 내 모든 메서드에 적용 -->
+            <aop:pointcut id="timeElapse" expression="within(kr.seing.practice.com.spring_aop_xml2.*)"/>
+            <!-- what: trace() 메서드, when: 핵심기능 전/후 -->
+            <aop:around pointcut-ref="timeElapse" method="trace"/>
+        </aop:aspect>
+    </aop:config>
+
+    <bean id="evaluation" class="kr.seing.practice.com.spring_aop_xml2.Evaluation">
+        <property name="kor" value="90"/>
+        <property name="eng" value="85"/>
+        <property name="math" value="95"/>
+    </bean>
+
+    <bean id="circle" class="kr.seing.practice.com.spring_aop_xml2.Circle">
+        <property name="radius" value="10"/>
+    </bean>
+
+</beans>

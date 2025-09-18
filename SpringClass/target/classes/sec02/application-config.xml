@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean id="performanceAspect" class="kr.seing.practice.sec02.PerformanceAspect"/>
+
+    <aop:config>
+        <!-- advice 클래스 등록 -->
+        <aop:aspect id="performanceAspect" ref="performanceAspect">
+            <!-- where: 해당 패키지 내 모든 메서드에 적용 -->
+            <aop:pointcut id="timeElapse" expression="within(kr.seing.practice.sec02.*)"/>
+            <!-- what: trace() 메서드, when: 핵심기능 전/후 -->
+            <aop:around pointcut-ref="timeElapse" method="trace"/>
+        </aop:aspect>
+    </aop:config>
+
+    <bean id="rect" class="kr.seing.practice.sec02.Rect">
+        <property name="width" value="10"/>
+        <property name="height" value="20"/>
+    </bean>
+
+    <bean id="gugudan" class="kr.seing.practice.sec02.Gugudan">
+        <property name="dan" value="7"/>
+    </bean>
+
+</beans>

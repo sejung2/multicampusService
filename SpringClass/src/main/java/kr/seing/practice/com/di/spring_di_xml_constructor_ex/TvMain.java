@@ -5,7 +5,7 @@ import org.springframework.context.support.GenericXmlApplicationContext;
 public class TvMain {
 
     public static void main(String[] args) {
-        GenericXmlApplicationContext context = new GenericXmlApplicationContext("application-context1_1.xml");
+        GenericXmlApplicationContext context = new GenericXmlApplicationContext("sec01/application-context1_1.xml");
 
         Tv tv = (Tv) context.getBean("tv");
         tv.volumeUp();
