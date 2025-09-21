@@ -11,7 +11,7 @@
     </appender>
 
     <!-- Application Loggers -->
-    <logger name="kr.seing.spring">
+    <logger name="kr.bluenyang.practice">
         <level value="info" />
     </logger>
 
