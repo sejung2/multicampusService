@@ -32,7 +32,7 @@ public class GababoServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/Gababo.jsp").forward(request, response);
+        request.getRequestDispatcher("Gababo.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -58,6 +58,5 @@ public class GababoServlet extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("Gababo.jsp");
             dispatcher.forward(request, response);
         }
-
     }
 }

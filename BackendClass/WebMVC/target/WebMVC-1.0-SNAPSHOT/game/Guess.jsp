@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -32,7 +33,7 @@
 
         <!-- 돌아가기 링크 -->
         <p>
-            <a href="main/GameView.jsp">게임 선택 화면으로 돌아가기</a>
+            <a href="<c:url value="/main/GameView.jsp"/> ">게임 선택 화면으로 돌아가기</a>
         </p>
 </head>
 <body>

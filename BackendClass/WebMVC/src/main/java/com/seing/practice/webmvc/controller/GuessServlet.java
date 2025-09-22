@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.Serial;
 
-@WebServlet("/guess")
+@WebServlet("/game/guess")
 public class GuessServlet extends HttpServlet {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -36,7 +36,7 @@ public class GuessServlet extends HttpServlet {
         request.setAttribute("answer", computerChoice);
         request.setAttribute("attempt", attempt);
 
-        request.getRequestDispatcher("/Guess.jsp").forward(request, response);
+        request.getRequestDispatcher("/game/Guess.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -78,7 +78,7 @@ public class GuessServlet extends HttpServlet {
             request.setAttribute("attempt", request.getParameter("attempt"));
         }
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/Guess.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/game/Guess.jsp");
         dispatcher.forward(request, response);
     }
 }

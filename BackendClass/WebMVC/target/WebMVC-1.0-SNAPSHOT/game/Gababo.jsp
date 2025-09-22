@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -5,7 +6,7 @@
     <br>
 
     <!-- 게임 폼 -->
-    <form name="gababoForm" method="post" action="game/gababo">
+    <form name="gababoForm" method="post" action="gababo">
         어떤 걸 내시겠습니까?
         <input type="radio" name="choice" value="1">가위
         <input type="radio" name="choice" value="2">바위
@@ -34,7 +35,7 @@
 
     <!-- 돌아가기 링크 -->
     <p>
-        <a href="main/GameView.jsp">게임 선택 화면으로 돌아가기</a>
+        <a href="<c:url value='/main/GameView.jsp'/> ">게임 선택 화면으로 돌아가기</a>
     </p>
 </head>
 <body>

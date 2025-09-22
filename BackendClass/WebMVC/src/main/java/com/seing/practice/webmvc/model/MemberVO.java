@@ -1,64 +1,77 @@
 package com.seing.practice.webmvc.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class MemberVO {
-	public String memId;
-	public String memPwd;
-	public String memName;
-	public String memEmail;
-	private Date memJoinDate;
-	
-	public MemberVO() { }
+    private String id;
+    private String pwd;
+    private String name;
+    private String email;
+    private Date joinDate;
 
-	public MemberVO(String memId, String memPwd, String memName, String memEmail, Date memJoinDate) {
-		super();
-		this.memId = memId;
-		this.memPwd = memPwd;
-		this.memName = memName;
-		this.memEmail = memEmail;
-		this.memJoinDate = memJoinDate;
-	}
+    public MemberVO() {
+    }
 
-	public String getMemId() {
-		return memId;
-	}
 
-	public void setMemId(String memId) {
-		this.memId = memId;
-	}
+    public MemberVO(String id, String pwd, String name, String email) {
+        super();
+        this.id = id;
+        this.pwd = pwd;
+        this.name = name;
+        this.email = email;
+    }
 
-	public String getMemPwd() {
-		return memPwd;
-	}
 
-	public void setMemPwd(String memPwd) {
-		this.memPwd = memPwd;
-	}
+    public MemberVO(String id, String pwd, String name, String email, Date joinDate) {
+        super();
+        this.id = id;
+        this.pwd = pwd;
+        this.name = name;
+        this.email = email;
+        this.joinDate = joinDate;
+    }
 
-	public String getMemName() {
-		return memName;
-	}
 
-	public void setMemName(String memName) {
-		this.memName = memName;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public String getMemEmail() {
-		return memEmail;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public void setMemEmail(String memEmail) {
-		this.memEmail = memEmail;
-	}
+    public String getPwd() {
+        return pwd;
+    }
 
-	public Date getMemJoinDate() {
-		return memJoinDate;
-	}
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
+    }
 
-	public void setMemJoinDate(Date memJoinDate) {
-		this.memJoinDate = memJoinDate;
-	}
-	
-	
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Date getJoinDate() {
+        return joinDate;
+    }
+
+    public void setJoinDate(Date joinDate) {
+        this.joinDate = joinDate;
+    }
+
+
 }
