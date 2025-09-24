@@ -11,7 +11,7 @@
     <!-- connection pool 에서 사용할 db 정보가 있는 위치 지정-->
     <context:property-placeholder location="classpath:/database/jdbc.properties"/>
     <!-- kr.seing.springJdbc 패키지 내 모든 클래스 자동 bean 등록 -->
-    <context:component-scan base-package="kr.seing.springJdbc"/>
+    <context:component-scan base-package="com.spring.mvcProject2"/>
     <!-- dataSource bean 생성 -->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="${jdbc.driverClassName}"/>
