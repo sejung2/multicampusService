@@ -9,7 +9,7 @@
 	</head>
 	<body>
 		<h3>도서 정보 등록</h3>
-		<form method="post" action="<c:url value='book/insertBook'/>">
+		<form method="post" action="<c:url value='/book/insertBook'/>">
 			<table>
 				<tr><td>도서 번호</td><td><input type="text" name="bookNo" id="bookNo">
 				</td></tr>

@@ -16,14 +16,14 @@
         <th>도서명</th>
         <th>저자</th>
         <th>도서가격</th>
-        <th>발행일</th>
+        <th>제조일</th>
         <th>재고</th>
         <th>출판사번호</th>
     </tr>
 
     <c:forEach items="${bookList}" var="book">
         <tr>
-            <td><a href="">${book.bookNo}</a></td>
+            <td><a href="<c:url value="/book/detailViewBook/${book.bookNo}"/> ">${book.bookNo}</a></td>
             <td>${book.bookName}</td>
             <td>${book.bookAuthor}</td>
             <td>${book.bookPrice}</td>

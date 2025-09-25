@@ -14,5 +14,8 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="mapperLocations" value="classpath:com/spring/mybatis/**/*.xml"/>
     </bean>
-    <mybatis-spring:scan base-package="com.spring.mybatis.dao"/>
+    <!-- IProductDAO가 위치한 패키지로 설정 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.spring.mybatis.dao"/>
+    </bean>
 </beans>

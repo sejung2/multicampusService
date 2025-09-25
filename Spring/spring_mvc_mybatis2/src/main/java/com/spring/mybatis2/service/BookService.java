@@ -22,21 +22,21 @@ public class BookService implements IBookService {
 
     @Override
     public void insertBook(BookVO vo) {
-
+        dao.insertBook(vo);
     }
 
     @Override
     public void updateBook(BookVO vo) {
-
+        dao.updateBook(vo);
     }
 
     @Override
     public void deleteBook(String prdNo) {
-
+        dao.deleteBook(prdNo);
     }
 
     @Override
     public BookVO detailViewBook(String prdNo) {
-        return null;
+        return dao.detailViewBook(prdNo);
     }
 }
