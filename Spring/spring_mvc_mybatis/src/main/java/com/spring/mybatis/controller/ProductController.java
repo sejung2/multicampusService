@@ -5,10 +5,10 @@ import com.spring.mybatis.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 @Controller
 public class ProductController {
@@ -78,5 +78,104 @@ public class ProductController {
     public String deleteProduct(@PathVariable String prdNo) {
         service.deleteProduct(prdNo);
         return "redirect:/product/listAllProduct";
+    }
+
+    // --------------------------------------------------------
+
+    // ajax 처리 연습
+
+    @ResponseBody
+    @RequestMapping("/product/prdNoCheck")
+    public String prdNoCheck(@RequestParam("prdNo") String prdNo) {
+        String prdNo_result = service.prdNoCheck(prdNo);
+
+        String result = "available";
+        if (prdNo_result != null) {
+            result = "no_available";
+        }
+        return result;
+    }
+
+    // ajax get 방식요청처리 - 요청 url에 상품 번호가 포함됨
+    // 상품 정보 중복 체크
+    @ResponseBody
+    @RequestMapping("/product/prdNoCheck1/{prdNo}")
+    public String prdNoCheck1(@PathVariable String prdNo) {
+        String prdNo_result = service.prdNoCheck(prdNo);
+
+        String result = "available";
+        if (prdNo_result != null) {
+            result = "no_available";
+        }
+        return result;
+    }
+
+    // fetch get 방식요청처리 - 요청 url에 상품 번호가 포함됨
+    @ResponseBody
+    @RequestMapping("/product/prdNoCheck2/{prdNo}")
+    public String prdNoCheck2(@PathVariable String prdNo) {
+        String prdNo_result = service.prdNoCheck(prdNo);
+
+        String result = "available";
+        if (prdNo_result != null) {
+            result = "no_available";
+        }
+        return result;
+    }
+
+    // fetch post 방식요청처리
+    @ResponseBody
+    @RequestMapping("/product/prdNoCheck3")
+    public String prdNoCheck3(@RequestBody String prdNo) {
+        String prdNo_result = service.prdNoCheck(prdNo);
+
+        String result = "available";
+        if (prdNo_result != null) {
+            result = "no_available";
+        }
+        return result;
+    }
+
+    // axios get 방식요청처리 - 요청 url에 상품 번호가 포함됨
+    @ResponseBody
+    @RequestMapping("/product/prdNoCheck4/{prdNo}")
+    public String prdNoCheck4(@PathVariable String prdNo) {
+        String prdNo_result = service.prdNoCheck(prdNo);
+
+        String result = "available";
+        if (prdNo_result != null) {
+            result = "no_available";
+        }
+        return result;
+    }
+
+    // axios post 방식요청처리 - 요청 url에 상품 번호가 포함됨
+    @ResponseBody
+    @RequestMapping("/product/prdNoCheck5")
+    public String prdNoCheck5(@RequestBody HashMap<String, String> map) {
+        String prdNo = map.get("prdNo");
+        String prdNo_result = service.prdNoCheck(prdNo);
+
+        String result = "available";
+        if (prdNo_result != null) {
+            result = "no_available";
+        }
+        return result;
+    }
+
+    // 상품 검색 폼 요청처리
+    @RequestMapping("/product/productSearchForm1")
+    public String productSearchForm1() {
+        return "product/productSearchForm1";
+    }
+
+    // 상품 검색 처리
+    // 파라미터 2개 전송됨: 검색 기준, 검색어
+    @ResponseBody
+    @RequestMapping("/product/productSearch1")
+    public ArrayList<ProductVO> productSearch1(@RequestParam HashMap<String, Object> param, Model model) {
+        ArrayList<ProductVO> prdList = service.productSearch(param);
+        model.addAttribute("prdList", prdList);
+        return prdList;
     }
 }

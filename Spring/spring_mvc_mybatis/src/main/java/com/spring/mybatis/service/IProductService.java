@@ -3,6 +3,7 @@ package com.spring.mybatis.service;
 import com.spring.mybatis.model.ProductVO;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public interface IProductService {
     ArrayList<ProductVO> listAllProduct();
@@ -10,5 +11,6 @@ public interface IProductService {
     void updateProduct(ProductVO vo);
     void deleteProduct(String prdNo);
     ProductVO detailViewProduct(String prdNo);
-
+    String prdNoCheck(String prdNo); // 상품 번호 중복 체크
+    ArrayList<ProductVO> productSearch(HashMap<String, Object> map); // 상품 검색
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 
@@ -76,9 +77,27 @@ public class BookController {
         return "redirect:/book/listAllBook";
     }
 
+    // 도서 삭제 요청
     @RequestMapping("/book/deleteBook/{bookNo}")
     public String deleteBook(@PathVariable String bookNo) {
         service.deleteBook(bookNo);
         return "redirect:/book/listAllBook";
+    }
+
+    // ------------------- Ajax ------------------ //
+
+    // 도서 중복 체크
+
+    @ResponseBody
+    @RequestMapping("/book/bookNoCheck/{bookNo}")
+    public String bookNoCheck(@PathVariable String bookNo) {
+        String bookNo_result = service.bookNoCheck(bookNo);
+
+        String result = "available";
+        if (bookNo_result == null) {
+            result = "available";
+        }
+
+        return result;
     }
 }

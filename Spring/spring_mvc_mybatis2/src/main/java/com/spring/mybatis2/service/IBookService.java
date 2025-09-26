@@ -16,4 +16,5 @@ public interface IBookService {
 
     BookVO detailViewBook(String bookNo);
 
+    String bookNoCheck(String bookNo);
 }

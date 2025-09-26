@@ -39,4 +39,9 @@ public class BookService implements IBookService {
     public BookVO detailViewBook(String prdNo) {
         return dao.detailViewBook(prdNo);
     }
+
+    @Override
+    public String bookNoCheck(String bookNo) {
+        return dao.bookNoCheck(bookNo);
+    }
 }

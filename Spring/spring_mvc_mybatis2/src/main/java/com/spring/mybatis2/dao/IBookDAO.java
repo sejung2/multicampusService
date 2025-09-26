@@ -14,5 +14,7 @@ public interface IBookDAO {
     void deleteBook(String bookNo);
 
     BookVO detailViewBook(String bookNo);
+
+    String bookNoCheck(String bookNo);
 }
 

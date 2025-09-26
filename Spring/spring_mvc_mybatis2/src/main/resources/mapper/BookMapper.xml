@@ -17,7 +17,7 @@
                           statemenType= stmt 객체 유형 지정(기본값 prepared)
      -->
     <!-- resultMap 구성 : 반환되는 rs의 컬럼과 저장해야하는 vo 클래스의 필드명을 매핑하는 역할 -->
-    <resultMap id="prdResult" type="com.spring.mybatis2.model.BookVO">
+    <resultMap id="bookResult" type="com.spring.mybatis2.model.BookVO">
         <result property="bookNo" column="bookNo"/>
         <result property="bookName" column="bookName"/>
         <result property="bookAuthor" column="bookAuthor"/>
@@ -29,5 +29,34 @@
 
     <select id="listAllBook" resultMap="bookResult">
         SELECT * FROM book2 ORDER BY bookNo
+    </select>
+
+    <!-- 도서 등록 -->
+    <insert id="insertBook" parameterType="com.spring.mybatis2.model.BookVO">
+        INSERT INTO book2(bookNo, bookName, bookAuthor, bookPrice, bookDate, bookStock, pubNo)
+        VALUES (#{bookNo}, #{bookName}, #{bookAuthor}, #{bookPrice}, #{bookDate}, #{bookStock}, #{pubNo})
+    </insert>
+
+    <!-- 도서 상세정보 조회 -->
+    <select id="detailViewBook" parameterType="String" resultType="com.spring.mybatis2.model.BookVO">
+        SELECT * FROM book2 WHERE bookNo=#{bookNo}
+    </select>
+
+    <!-- 도서 정보 수정 -->
+    <update id="updateBook" parameterType="com.spring.mybatis2.model.BookVO">
+        UPDATE book2
+        SET bookNo=#{bookNo}, bookName=#{bookName}, bookAuthor=#{bookAuthor}, bookPrice=#{bookPrice},
+            bookDate=#{bookDate}, bookStock=#{bookStock}, pubNo=#{pubNo}
+        WHERE bookNo=#{bookNo}
+    </update>
+
+    <!-- 도서 정보 삭제 -->
+    <delete id="deleteBook" parameterType="String">
+        DELETE FROM book2 WHERE bookNo=#{bookNo}
+    </delete>
+
+    <!-- 도서 번호 중복 확인 -->
+    <select id="bookNoCheck" parameterType="String" resultType="String">
+        SELECT bookNo FROM book2 WHERE bookNo=#{bookNo}
     </select>
 </mapper>

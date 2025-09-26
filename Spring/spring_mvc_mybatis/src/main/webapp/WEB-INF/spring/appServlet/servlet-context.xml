@@ -17,6 +17,8 @@
 	<resources mapping="/resources/**" location="/resources/" />
     <!-- 프로젝트 외부에 있는 자원의 경로 설정(매핑) -->
     <resources location="file:C:/product_images/" mapping="/product_images/**"/>
+    <!-- 자바스크립트 경로 매핑 -->
+    <resources mapping="/js/**" location="/resources/js/"/>
 
 
     <!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
