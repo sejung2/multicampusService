@@ -14,6 +14,7 @@
 <a href="<c:url value='/product/listAllProduct'/>">전체 상품 조회</a><br>
 <a href="<c:url value='/product/newProductForm'/>">상품 등록</a><br>
 <a href="<c:url value='/product/productSearchForm1'/>">상품 검색</a><br>
+<a href="<c:url value='/product/productSearchForm2'/>">상품 검색2</a><br>
 <hr>
 이미지 표현 예제<br>
 <img src="<c:url value='/resources/image/apple.png'/>" alt="apple" width="100" height="100"> <br>

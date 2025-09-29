@@ -17,7 +17,7 @@
     </bean>
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <property name="mapperLocations" value="classpath:com/spring/mybatis2/**/*.xml"/>
+        <property name="mapperLocations" value="classpath:mapper/**/*.xml"/>
     </bean>
     <!-- IProductDAO가 위치한 패키지로 설정 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">

@@ -94,10 +94,16 @@ public class BookController {
         String bookNo_result = service.bookNoCheck(bookNo);
 
         String result = "available";
-        if (bookNo_result == null) {
-            result = "available";
+        if (bookNo_result != null) {
+            result = "no_available";
         }
 
         return result;
+    }
+
+    //도서검색 폼 요청 처리
+    @RequestMapping("/book/bookSearchForm")
+    public String bookSearchForm() {
+        return "/book/bookSearchForm";
     }
 }

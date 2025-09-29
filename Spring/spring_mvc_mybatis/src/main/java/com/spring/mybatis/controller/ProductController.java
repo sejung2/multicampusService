@@ -173,9 +173,32 @@ public class ProductController {
     // 파라미터 2개 전송됨: 검색 기준, 검색어
     @ResponseBody
     @RequestMapping("/product/productSearch1")
-    public ArrayList<ProductVO> productSearch1(@RequestParam HashMap<String, Object> param, Model model) {
+    public String productSearch1(@RequestParam HashMap<String, Object> param, Model model) {
         ArrayList<ProductVO> prdList = service.productSearch(param);
         model.addAttribute("prdList", prdList);
-        return prdList;
+        return "/product/productSearchResulView";
+    }
+
+    //상품검색 폼2 요청 처리
+    @RequestMapping("/product/productSearchForm2")
+    public String productSearchForm2() {
+        return "/product/productSearchForm2";
+    }
+
+    //상품 검색 처리2
+    //파라미터 2개 전송됨 : 검색기준,검색어 : type:prdName keyword:모니터
+    @RequestMapping("/product/productSearch2")
+    public String productSearch2(@RequestParam HashMap<String, Object> param, Model model) {
+        System.out.println("test");
+        ArrayList<ProductVO> prdList = service.productSearch(param);
+        model.addAttribute("prdList", prdList);
+
+        return "product/productSearchResultView";
+    }
+
+    //상품검색 폼3 요청 처리
+    @RequestMapping("/product/productSearchForm3")
+    public String productSearchForm3() {
+        return "/product/productSearchForm3";
     }
 }

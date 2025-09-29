@@ -17,14 +17,32 @@ $(document).ready(function () {
                 url: '/product/productSearch1',
                 data: formData, // 요청 시 전송될 파라미터
                 success: (result) => {
-                    if (result == "success") {
-                        {
-                            alert("로그인 성공\n 상품 조회 화면으로 이동합니다.");
-                            location.href = "/product/listAllProduct";
-                        }
+                    console.log(result);
+                    $('#searchResultBox').empty(); // 이전 검색 결과 초기화
+                    $('#searchResultBox').append('<table id=\"resultTable\" border=\"1\" width=\"500">' +
+                        '<tr><th>상품번호</th><th>상품명</th><th>상품가격</th>' +
+                        '<th>제조사</th><th>재고</th><th>제조일</th><th>사진</th></tr>');
+
+                    if (result == "") {
+                        $('#searchResultBox').append('<tr align="center"><td colspan="7">검색 결과가 없습니다.</td></tr>');
                     } else {
-                        alert("로그인 실패");
+                        for (let i = 0; i < result.length; i++) {
+                            let prd_date = new Date(result[i].prdDate);
+                            let year = prd_date.getFullYear();
+                            let month = (prd_date.getMonth() + 1).toString().padStart(2, '0');
+                            let date = (prd_date.getDate()).toString().padStart(2, '0');
+                            let prdDate = `${year}-${month}-${date}`;
+                            $('#resultTable').append('<tr><td>' + result[i].prdNo + '</td>' +
+                                '<td>' + result[i].prdName + '</td>' +
+                                '<td>' + result[i].prdPrice + '</td>' +
+                                '<td>' + result[i].prdCompany + '</td>' +
+                                '<td>' + result[i].prdStock + '</td>' +
+                                '<td>' + prdDate + '</td>' +
+                                '<td><img src="/resources/image/' + result[i].prdNo + '.jpg" width="30" height="20"></td></tr>');
+
+                        }
                     }
+                    $('#searchResultBox').append('</table>');
                 },
                 error: function () {
                     alert("요청 실패");

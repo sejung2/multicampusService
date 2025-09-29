@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 @Service
 public class BookService implements IBookService {
@@ -43,5 +44,10 @@ public class BookService implements IBookService {
     @Override
     public String bookNoCheck(String bookNo) {
         return dao.bookNoCheck(bookNo);
+    }
+
+    @Override
+    public ArrayList<BookVO> bookSearch(HashMap<String, Object> map) {
+        return dao.bookSearch(map);
     }
 }
