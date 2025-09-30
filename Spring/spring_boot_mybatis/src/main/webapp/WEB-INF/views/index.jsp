@@ -17,11 +17,19 @@
 <a href="<c:url value='/product/productSearchForm2'/>">상품 검색2</a><br>
 <hr>
 이미지 표현 예제<br>
-<img src="<c:url value='/resources/image/apple.png'/>" alt="apple" width="100" height="100"> <br>
+<img src="<c:url value='/image/apple.png'/>" alt="apple" width="100" height="100"> <br>
 <hr>
 <h3>Ajax practice</h3>
 <a href="<c:url value='/loginForm'/> ">로그인 폼</a><br>
 <a href="<c:url value='/loginForm2'/> ">로그인 폼2</a><br>
 
+
+<hr>
+<h3>파일 업로드</h3>
+<a href="<c:url value='/fileUploadForm'/> ">파일 업로드</a><br>
+<a href="<c:url value='/imageFileUploadForm'/> ">비동기 방식을 통한 파일 업로드</a><br>
+
+<h3>파일 다운로드</h3>
+<a href="<c:url value='/fileDownloadList'/> ">파일 다운로드</a><br>
 </body>
 </html>

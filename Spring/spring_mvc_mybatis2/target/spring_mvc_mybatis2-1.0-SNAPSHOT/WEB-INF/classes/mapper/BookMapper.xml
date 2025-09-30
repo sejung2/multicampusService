@@ -59,4 +59,17 @@
     <select id="bookNoCheck" parameterType="String" resultType="String">
         SELECT bookNo FROM book2 WHERE bookNo=#{bookNo}
     </select>
+
+    <!-- 도서 검색 -->
+    <select id="bookSearch" parameterType="hashmap" resultMap="bookResult">
+        SELECT * FROM book2 WHERE
+        <choose>
+            <when test="type != null and type.equals('bookName')">
+                bookName LIKE '%'||#{keyword}||'%'
+            </when>
+            <when test="type != null and type.equals('pubNo')">
+                pubNo LIKE '%'||#{keyword}||'%'
+            </when>
+        </choose>
+    </select>
 </mapper>

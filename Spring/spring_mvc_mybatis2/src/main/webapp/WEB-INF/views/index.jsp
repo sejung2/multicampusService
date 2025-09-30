@@ -13,6 +13,7 @@
 		<a href="/book/listAllBook">전체 도서 조회</a><br>
 		<a href="<c:url value='/book/listAllBook'/>">전체 도서 조회</a><br>
 		<a href="<c:url value='/book/newBookForm'/>">도서 등록</a><br>
+        <a href="<c:url value='/book/bookSearchForm'/>">도서 검색</a><br>
 
 </body>
 </html>

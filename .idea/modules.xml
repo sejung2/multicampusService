@@ -6,7 +6,6 @@
       <module fileurl="file://$PROJECT_DIR$/ProjectJDBC/ProjectJDBC.iml" filepath="$PROJECT_DIR$/ProjectJDBC/ProjectJDBC.iml" />
       <module fileurl="file://$PROJECT_DIR$/algorithm/algorithm.iml" filepath="$PROJECT_DIR$/algorithm/algorithm.iml" />
       <module fileurl="file://$PROJECT_DIR$/designpatern/designpatern.iml" filepath="$PROJECT_DIR$/designpatern/designpatern.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/hdMulticampusService.iml" filepath="$PROJECT_DIR$/.idea/hdMulticampusService.iml" />
       <module fileurl="file://$PROJECT_DIR$/java-app/java-app.iml" filepath="$PROJECT_DIR$/java-app/java-app.iml" />
     </modules>
   </component>
