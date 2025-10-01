@@ -20,4 +20,5 @@
 	$('#moveToTop').on('click',function(){
 		$('html,body').animate({scrollTop:0},500);
 	});//top버튼 종료
+
  }); //종료
