@@ -15,7 +15,7 @@
                 ${sessionScope.sid}님 환영합니다!
             <a href="<c:url value='/member/logout'/>">로그아웃</a>
             <a href="<c:url value='/member/boardList'/>">게시판</a>
-            <a href="<c:url value='/product/cartList'/>">장바구니</a>
+            <a href="<c:url value='/product/cartListView'/>">장바구니</a>
             <a href="<c:url value='/member/myPage'/>">마이페이지</a>
             고객센터
             </c:if>
@@ -36,10 +36,10 @@
     <div id="subMenuBox">
         <div class="subMenuItem" id="subMenuItem1">
             <ul>
-                <li><a href="#">subMenuItem1-1</a></li>
-                <li><a href="#">subMenuItem1-2</a></li>
-                <li><a href="#">subMenuItem1-3</a></li>
-                <li><a href="#">subMenuItem1-4</a></li>
+                <li><a href='<c:url value='/product/productCtgList/${1}'/>'>노트북</a></li>
+                <li><a href='<c:url value='/product/productCtgList/${2}'/>'>프린터</a></li>
+                <li><a href='<c:url value='/product/productCtgList/${3}'/>'>마우스</a></li>
+                <li><a href='<c:url value='/product/productCtgList/${4}'/>'>키보드</a></li>
             </ul>
         </div>
         <div class="subMenuItem" id="subMenuItem2">
