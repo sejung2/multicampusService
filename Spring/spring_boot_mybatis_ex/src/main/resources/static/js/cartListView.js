@@ -1,8 +1,27 @@
-/* 전체선택 체크박스 기능 추가
-
-*/
+/* 전체선택 체크박스 기능 추가*/
 
 $(document).ready(function () {
+    // 주문수량 변경 처리
+    let amount = $('.amount');
+    let price = $('.price');
+    let sum = 0;
+
+    $.each($('.cartQty'), function (i) {
+        $(this).on('keyup', function (index) {
+            let qty = $(this).val();
+            amount[i].dataset.amount = (price[i].dataset.price * qty); // span 태그 속성 변경
+            amount[i].innerHTML = (price[i].dataset.price * qty).toLocaleString(); // span 태그 내부 text 변경
+            sumAmount(); // 총 구매예정 금액 계산
+            $('#total').text(sum.toLocaleString());
+        })
+    })
+
+    function sumAmount() {
+        $('.amount').each(function () {
+            sum += Number($(this).attr("data-amount"));
+        });
+    }
+
     //[전체 선택] 체크박스 체크 했을 때
     $('#allCheck').on('click', function () {
         let chk = $('#allCheck').prop("checked");
@@ -42,7 +61,7 @@ $(document).ready(function () {
                 });//each 끝
 
                 $.ajax({
-                    type: post,
+                    type: "post",
                     url: "/product/deleteCart",
                     data: {"chkbox": checkArr},
                     dataType: "text",

@@ -1,6 +1,8 @@
 package com.spring.mybatis.project.controller;
 
 import com.spring.mybatis.project.model.CartVO;
+import com.spring.mybatis.project.model.MemberVO;
+import com.spring.mybatis.project.model.OrderInfoVO;
 import com.spring.mybatis.project.service.CartService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 @Controller
 public class CartController {
@@ -45,7 +49,6 @@ public class CartController {
         String memId = session.getAttribute("sid").toString(); // 요청을 한 회원 아이디
         ArrayList<CartVO> cartList = cartService.cartList(memId);
         model.addAttribute("cartList", cartList);
-        System.out.println("cartList:" + cartList.toString());
         return "product/cartListView";
     }
 
@@ -56,10 +59,78 @@ public class CartController {
         int result = 0;
 
         //서비스에 ArrayList 전달
-        if(chkArr != null) {
+        if (chkArr != null) {
             cartService.deleteCart(chkArr);
             result = 1;
         }
         return result;
+    }
+
+    // ------------------------------------- 주문 처리 ------------------------------------ //
+
+    // 주문서 작성 요청 처리 - 카트 목록보기에서 요청 발생
+    // 주문서 회원정보, cart 상품 목록 정보가 필요함
+    @PostMapping("/product/orderForm")
+    public String orderForm(@RequestParam int[] cartNo,
+                            @RequestParam int[] cartQty,
+                            Model model, HttpSession session) {
+        String memId = (String) session.getAttribute("sid");
+
+        // (1) 주문하기 버튼 클릭 주문 수량 변경되어 있을 수 있으므로 cart 테이블 주문수량 update 수행
+        for (int i = 0; i < cartNo.length; i++) {
+            CartVO vo = new CartVO();
+            vo.setCartNo(cartNo[i]);
+            vo.setCartQty(cartQty[i]);
+            cartService.updateCart(vo); // 카트 목록 한개마다 update 진행
+        }
+
+        // (2) 주문서에 출력할 회원 정보 조회
+        MemberVO memVo = cartService.getMemberInfO(memId);
+        model.addAttribute("memVo", memVo);
+        // 핸드폰 data 분리
+        String[] hp = memVo.getMemHP().split("-");
+        model.addAttribute("hp1", hp[0]);
+        model.addAttribute("hp2", hp[1]);
+        model.addAttribute("hp3", hp[2]);
+
+        // (3) 주문서에 출력할 주문할 장바구니 목록 추출
+        ArrayList<CartVO> cartList = cartService.cartList(memId);
+        model.addAttribute("cartList", cartList);
+
+        return "product/orderForm";
+    }
+
+    @PostMapping("/product/orderComplete")
+    public String orderInsert(OrderInfoVO ordInfoVo,
+                              @RequestParam String hp1,
+                              @RequestParam String hp2,
+                              @RequestParam String hp3) {
+
+        // 전화번호 설정
+        String hp = hp1 + "-" + hp2 + "-" + hp3;
+        ordInfoVo.setOrdRcvPhone(hp);
+
+        // 주문 번호 생성
+        // 주문번호: 오늘날짜 시 분 초_랜덤숫자4자리
+        long timeNum = System.currentTimeMillis();
+        SimpleDateFormat dayTime = new SimpleDateFormat("yyyyMMddHHmmss");
+        String strTime = dayTime.format(new Date(timeNum));
+
+        // 4자리 랜덤 숫자 생성
+        String rNum = "";
+        for (int i = 1; i <= 4; i++) {
+            rNum += (int) (Math.random() * 10);
+        }
+
+        String ordNo = strTime + "_" + rNum;
+        // 주문번호 저장
+        ordInfoVo.setOrdNo(ordNo);
+
+        // service method 호출
+        // ordInfoVo에는 수령인 정보와 주문자 정보가 저장되어 있음
+        // 주문상품에 관한 정보는 cart테이블에서 추출해서 사용할 예정
+        cartService.insertOrderInfo(ordInfoVo);
+
+        return "product/orderCompleteView";
     }
 }

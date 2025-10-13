@@ -45,9 +45,9 @@ public class MemberController {
 
         String result = memService.loginCheck(param);
 
-        if(result.equals("success")) {
+        if (result.equals("success")) {
             // 로그인 조건에 만족하면 로그인 처리(세션을 활용) : 세션변수에 id값을 저장
-            session.setAttribute("sid", (String)param.get("id"));
+            session.setAttribute("sid", (String) param.get("id"));
         }
         return result;
     }
@@ -89,5 +89,11 @@ public class MemberController {
         vo.setMemHP(memHp);
         memService.insertMember(vo);
         return "redirect:/member/loginForm"; // 로그인 폼 페이지로 이동
+    }
+
+    // 마이페이지 요청 처리
+    @GetMapping("/member/myPage")
+    public String myPage() {
+        return "member/myPage";
     }
 }

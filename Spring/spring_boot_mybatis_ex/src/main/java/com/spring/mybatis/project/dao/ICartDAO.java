@@ -1,6 +1,8 @@
 package com.spring.mybatis.project.dao;
 
 import com.spring.mybatis.project.model.CartVO;
+import com.spring.mybatis.project.model.MemberVO;
+import com.spring.mybatis.project.model.OrderInfoVO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,4 +24,15 @@ public interface ICartDAO {
 
     // 장바구니 상품 삭제 (특정)
     public void deleteCart(ArrayList<String> chkArr);
+
+    // 주문 처리 작업에 필요한 메서드 추가
+    public void updateCart(CartVO vo);
+
+    public MemberVO getMemberInfo(String memId);
+
+    public void insertOrderInfo(OrderInfoVO orderInfoVO);
+
+    public void insertOrderProduct(HashMap<String, Object> map);
+
+    public void deleteCartAfterOrder(String memId);
 }
