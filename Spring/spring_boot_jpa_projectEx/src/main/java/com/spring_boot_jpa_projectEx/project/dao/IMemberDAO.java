@@ -20,4 +20,7 @@ public interface IMemberDAO {
 
     // 회원정보 수정
     void myInfoUpdate(MemberEntity entity);
+
+    // 회원 탈퇴
+    public void myInfoDelete(String memId);
 }

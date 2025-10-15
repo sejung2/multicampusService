@@ -28,16 +28,21 @@ public class MemberServiceDataHandle implements IMemberServiceDataHandle{
 
     @Override
     public void insertMember(MemberEntity entity) {
-
+        dao.insertMember(entity);
     }
 
     @Override
     public Optional<MemberEntity> myInfoUpdateForm(String memId) {
-        return Optional.empty();
+        return dao.myInfoUpdateForm(memId);
     }
 
     @Override
     public void myInfoUpdate(MemberEntity entity) {
+        dao.myInfoUpdate(entity);
+    }
 
+    @Override
+    public void myInfoDelete(String memId) {
+        dao.myInfoDelete(memId);
     }
 }

@@ -6,8 +6,8 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>상품 검색</title>
-		<script src="<c:url value='/js/jquery-3.7.1.min.js'/>"></script>
-		<script src="<c:url value='/js/productSearch1.js'/>"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="<c:url value='/js/productSearch1.js'/>"></script>
 	</head>
 	<body>
 		<h3>상품 검색</h3>

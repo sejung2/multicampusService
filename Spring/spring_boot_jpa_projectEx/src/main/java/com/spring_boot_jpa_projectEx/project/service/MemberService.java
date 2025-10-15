@@ -1,11 +1,13 @@
 package com.spring_boot_jpa_projectEx.project.service;
 
 import com.spring_boot_jpa_projectEx.project.dto.MemberDTO;
+import com.spring_boot_jpa_projectEx.project.entity.MemberEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 @Service
 public class MemberService implements IMemberService {
@@ -46,22 +48,27 @@ public class MemberService implements IMemberService {
         //setter 사용해서 암호화된 값으로 설정한 다음
         // vo를 mapper에게 전달
         String encodedPwd = pwdEncoder.encode(dto.getMemPwd());
-        //vo.setMemPwd(encodedPwd);
-        //memberServiceDataHandle.insertMember(dto);
+        dto.updatePwd(encodedPwd);
+        memberServiceDataHandle.insertMember(MemberEntity.toEntity(dto)); // dto -> entity 변환
 
     }
 
     @Override
     public MemberDTO myInfoUpdateForm(String memId) {
         // TODO Auto-generated method stub
-        memberServiceDataHandle.myInfoUpdateForm(memId);
-        return null;
+        Optional<MemberEntity> entity = memberServiceDataHandle.myInfoUpdateForm(memId);
+        return MemberDTO.toDto(entity.get());
     }
 
     @Override
     public void myInfoUpdate(MemberDTO myInfo) {
-        // TODO Auto-generated method stub
-        //memberServiceDataHandle.myInfoUpdate(myInfo);
+        memberServiceDataHandle.myInfoUpdate(MemberEntity.toEntity(myInfo));
     }
+
+    @Override
+    public void myInfoDelete(String memId) {
+        memberServiceDataHandle.myInfoDelete(memId);
+    }
+
 
 }

@@ -18,5 +18,8 @@ public interface IMemberService {
 	
 	// 회원정보 수정
 	public void myInfoUpdate(MemberDTO myInfo);
+
+    // 회원 탈퇴
+    public void myInfoDelete(String memId);
 }
 

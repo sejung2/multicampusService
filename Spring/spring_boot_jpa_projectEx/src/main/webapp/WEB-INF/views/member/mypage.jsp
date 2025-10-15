@@ -10,9 +10,11 @@
 		<title>별별 쇼핑몰</title>
 		<link rel="stylesheet" type="text/css" href="<c:url value='/css/mypage.css'/>">
 		<c:import url="/WEB-INF/views/layout/head.jsp" />
-				<style>
-					
-				</style>
+        <c:if test='${state eq "updater"}'>
+            <script>
+                alert("회원정보가 수정되었습니다.");
+            </script>
+        </c:if>
 	</head>
 	<body>
 	<div id="wrap" class="wrap"> 
@@ -32,13 +34,13 @@
 		    			<span>주문내역</span>
 						</a>
 
-		    		
-
 						<a href="<c:url value='/member/myInfoUpdateForm'/>" >
 							<span>내정보수정</span>
 						</a>
 
-		    		
+						<a href="<c:url value='/member/myInfoDelete'/>" >
+							<span>회원 탈퇴</span>
+						</a>
 		    	</div>
 	    		
 	    	</div>

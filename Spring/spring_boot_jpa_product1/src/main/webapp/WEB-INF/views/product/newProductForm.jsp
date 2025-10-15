@@ -7,7 +7,7 @@
 		<meta charset="UTF-8">
 		<title>productForm</title>
 		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-		<script src="<c:url value='/js/jquery-3.7.1.min.js'/>"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 		<script src="<c:url value='/js/prdNoCheck.js'/>"></script>
 	</head>
 	<body>

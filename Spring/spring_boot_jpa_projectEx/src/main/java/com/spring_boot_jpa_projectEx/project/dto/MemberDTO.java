@@ -20,8 +20,17 @@ public class MemberDTO {
 	private String memHP;
 	private String memZipcode;
 	private String memAddress1;
-	private String memAddress2;	
-	
+	private String memAddress2;
+
+
+    public void updateHP(String memHp) {
+        this.memHP = memHp;
+    }
+
+    public void updatePwd(String encodedPwd) {
+        this.memPwd = encodedPwd;
+    }
+
     public static MemberDTO toDto(MemberEntity entity) {
         return MemberDTO.builder()
                 .memId(entity.getMemId())

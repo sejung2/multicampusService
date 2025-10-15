@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 
 @Repository
-public interface ProductRepository extends JpaRepository<ProductEntity, Integer> {
+public interface ProductRepository extends JpaRepository<ProductEntity, String> {
     // JpaRepository를 통해서 기본 CRUD 기능 자동 추가 됨 - 관련 method 사용
 
     //사용자 정의 Repo 메소드
